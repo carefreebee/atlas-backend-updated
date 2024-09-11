@@ -31,6 +31,24 @@ public class GoalController {
         }
     }
 
+    @PostMapping("/add")
+    public ResponseEntity<GoalEntity> addGoal(@RequestBody GoalEntity goal) {
+        GoalEntity savedGoal = goalService.saveGoal(goal);
+        return ResponseEntity.ok(savedGoal);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<GoalEntity> getGoal(@PathVariable int goalId) {
+        GoalEntity goal = goalService.getGoalById(goalId);
+        return ResponseEntity.ok(goal);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<GoalEntity>> getAllGoals() {
+        List<GoalEntity> goals = goalService.getAllGoals();
+        return ResponseEntity.ok(goals);
+    }
+
     @GetMapping("/get/department/{departmentId}")
     public ResponseEntity<?> getLatestGoalsByDepartmentId(@PathVariable int departmentId) {
         try {

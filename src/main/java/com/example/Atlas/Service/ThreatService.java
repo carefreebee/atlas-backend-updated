@@ -1,7 +1,9 @@
 package com.example.Atlas.Service;
 
 import java.util.NoSuchElementException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +72,20 @@ public class ThreatService {
         }
     }
 
+    public List<ThreatEntity> getAllThreat() {
+        return threatrepo.findAll();
+    }
+
+    public Map<String, Integer> getThreatCountByDepartment() {
+        List<Object[]> results = threatrepo.countThreatsByDepartment();
+        Map<String, Integer> countMap = new HashMap<>();
+        for (Object[] result : results) {
+            String departmentName = (String) result[0];
+            Long count = (Long) result[1];
+            countMap.put(departmentName, count.intValue());
+        }
+        return countMap;
+    }
 
 
     

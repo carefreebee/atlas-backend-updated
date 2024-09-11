@@ -1,13 +1,7 @@
 package com.example.Atlas.Entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "goal")
@@ -23,11 +17,11 @@ public class GoalEntity {
 
     private String mission;
 
-    private String goals;
+    @ElementCollection // This annotation maps a collection of elements as a separate table.
+    @CollectionTable(name = "goal_goals", joinColumns = @JoinColumn(name = "goal_id"))
+    @Column(name = "goal")
 
-    private String goals2;
-
-    private String goals3;
+    private List<String> goals; // List to store multiple goals
 
     private int targetYear;
 
@@ -78,28 +72,12 @@ public class GoalEntity {
         this.accomplished = accomplished;
     }
 
-    public String getGoals() {
+    public List<String> getGoals() {
         return goals;
     }
 
-    public void setGoals(String goals) {
+    public void setGoals(List<String> goals) {
         this.goals = goals;
-    }
-
-    public String getGoals2() {
-        return goals2;
-    }
-
-    public void setGoals2(String goals2) {
-        this.goals2 = goals2;
-    }
-
-    public String getGoals3() {
-        return goals3;
-    }
-
-    public void setGoals3(String goals3) {
-        this.goals3 = goals3;
     }
 
     public int getTargetYear() {

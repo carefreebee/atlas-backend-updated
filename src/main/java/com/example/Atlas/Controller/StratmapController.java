@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
@@ -229,8 +230,28 @@ public class StratmapController {
         }
     }
 
-   
+    @DeleteMapping("/financial/clear")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
+    public void clearFinancialTableAndResetId() {
+        stratmapserv.financialClearTable();
+    }
 
+    @DeleteMapping("/stakeholder/clear")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
+    public void clearStakeholderTableAndResetId() {
+        stratmapserv.stakeholderClearTable();
+    }
 
+    @DeleteMapping("/learning/clear")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
+    public void clearLearningTableAndResetId() {
+        stratmapserv.learningClearTable();
+    }
+
+    @DeleteMapping("/internal/clear")
+    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
+    public void clearInternalTableAndResetId() {
+        stratmapserv.internalClearTable();
+    }
     
 }

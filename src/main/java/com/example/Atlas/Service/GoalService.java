@@ -35,6 +35,14 @@ public class GoalService {
                                                 "No goals found for department id " + departmentId));
         }
 
+        public GoalEntity saveGoal(GoalEntity goal) {
+                return goalRepository.save(goal);
+            }
+
+            public List<GoalEntity> getAllGoals() {
+                return goalRepository.findAll();
+            }
+
         @Transactional(readOnly = true)
         public GoalEntity getLatestGoal() {
                 return goalRepository.findFirstByAccomplishedOrderByIdDesc(false)
@@ -57,14 +65,12 @@ public class GoalService {
                 GoalEntity existingGoal = goalRepository.findById(goalId)
                                 .orElseThrow(() -> new NoSuchElementException("Goal not found with id " + goalId));
                 DepartmentEntity department = departmentRepository.findById(request.getDepartment().getId())
-                                .orElseThrow(() -> new NoSuchElementException("Department not found"));
+                                .orElseThrow(() -> new NoSuchElementException("Department not found with id " + request.getDepartment().getId()));
 
                 existingGoal.setVision(request.getVision());
                 existingGoal.setProposition(request.getProposition());
                 existingGoal.setMission(request.getMission());
-                existingGoal.setGoals(request.getGoals());
-                existingGoal.setGoals2(request.getGoals2());
-                existingGoal.setGoals3(request.getGoals3());
+                existingGoal.setGoals(request.getGoals()); 
                 existingGoal.setTargetYear(request.getTargetYear());
                 existingGoal.setDepartment(department);
 

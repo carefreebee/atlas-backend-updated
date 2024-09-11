@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Atlas.Entity.DepartmentEntity;
 import com.example.Atlas.Entity.FinancialEntity;
@@ -36,6 +39,9 @@ public class StratmapService {
 
      @Autowired
     DepartmentRepository departmentrepo;
+
+    @Autowired
+    private EntityManager entityManager;
 
 
     public Map<String, Object> getStrategiesByDepartmentId(int departmentId) {
@@ -198,6 +204,40 @@ public class StratmapService {
             return msg;
     } 
 
+    @Transactional
+    public void financialClearTable() {
+        // 1. DELETE FROM 
+        entityManager.createNativeQuery("DELETE FROM financial_bsc").executeUpdate();
 
+        // 2. Reset Auto-Increment (MySQL Example) 
+        entityManager.createNativeQuery("ALTER TABLE financial_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+    }
+
+    @Transactional
+    public void stakeholderClearTable() {
+        // 1. DELETE FROM 
+        entityManager.createNativeQuery("DELETE FROM stakeholder_bsc").executeUpdate();
+
+        // 2. Reset Auto-Increment (MySQL Example) 
+        entityManager.createNativeQuery("ALTER TABLE stakeholder_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+    }
+
+    @Transactional
+    public void learningClearTable() {
+        // 1. DELETE FROM 
+        entityManager.createNativeQuery("DELETE FROM learning_bsc").executeUpdate();
+
+        // 2. Reset Auto-Increment (MySQL Example) 
+        entityManager.createNativeQuery("ALTER TABLE learning_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+    }
+
+    @Transactional
+    public void internalClearTable() {
+        // 1. DELETE FROM 
+        entityManager.createNativeQuery("DELETE FROM internal_bsc").executeUpdate();
+
+        // 2. Reset Auto-Increment (MySQL Example) 
+        entityManager.createNativeQuery("ALTER TABLE internal_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+    }
     
 }

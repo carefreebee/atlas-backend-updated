@@ -92,5 +92,19 @@ public class WeaknessController {
         }
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllWeakness() {
+        try {
+            List<WeaknessEntity> weakness = weaknessserv.getAllWeakness();
+            if (weakness != null && !weakness.isEmpty()) {
+                return ResponseEntity.ok(weakness);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No weakness found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
     
 }

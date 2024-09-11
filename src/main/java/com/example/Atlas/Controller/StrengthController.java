@@ -93,6 +93,19 @@ public class StrengthController {
         }
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllStrengths() {
+        try {
+            List<StrengthEntity> strengths = strengthserv.getAllStrengths();
+            if (strengths != null && !strengths.isEmpty()) {
+                return ResponseEntity.ok(strengths);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No strengths found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
  
 
 

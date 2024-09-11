@@ -92,6 +92,20 @@ public class OpportunityController {
         }
     }
 
+    @GetMapping("/getAll")
+    public ResponseEntity<?> getAllOpportunity() {
+        try {
+            List<OpportunityEntity> opportunities = opportunityserv.getAllOpportunity();
+            if (opportunities != null && !opportunities.isEmpty()) {
+                return ResponseEntity.ok(opportunities);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No opportunities found");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
 
 
     

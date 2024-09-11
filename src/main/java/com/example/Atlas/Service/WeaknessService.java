@@ -1,7 +1,9 @@
 package com.example.Atlas.Service;
 
 import java.util.NoSuchElementException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,21 @@ public class WeaknessService {
         } else {
             throw new NoSuchElementException("Weakness not found with ID: " + weaknessId);
         }
+    }
+
+    public List<WeaknessEntity> getAllWeakness() {
+        return weaknessrepo.findAll();
+    }
+
+    public Map<String, Integer> getWeaknessCountByDepartment() {
+        List<Object[]> results = weaknessrepo.countWeaknessesByDepartment();
+        Map<String, Integer> countMap = new HashMap<>();
+        for (Object[] result : results) {
+            String departmentName = (String) result[0];
+            Long count = (Long) result[1];
+            countMap.put(departmentName, count.intValue());
+        }
+        return countMap;
     }
 
     

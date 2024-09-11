@@ -1,6 +1,8 @@
 package com.example.Atlas.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -69,6 +71,21 @@ public class OpportunityService {
         } else {
             throw new NoSuchElementException("Opportunity not found with ID: " + opportunityId);
         }
+    }
+
+    public List<OpportunityEntity> getAllOpportunity() {
+        return opportunityrepo.findAll();
+    }
+
+    public Map<String, Integer> getOpportunityCountByDepartment() {
+        List<Object[]> results = opportunityrepo.countOpportunitiesByDepartment();
+        Map<String, Integer> countMap = new HashMap<>();
+        for (Object[] result : results) {
+            String departmentName = (String) result[0];
+            Long count = (Long) result[1];
+            countMap.put(departmentName, count.intValue());
+        }
+        return countMap;
     }
 
     

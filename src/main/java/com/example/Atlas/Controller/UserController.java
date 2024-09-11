@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.example.Atlas.Entity.UserEntity;
 import com.example.Atlas.Service.UserService;
+import com.example.Atlas.exception.InvalidPasswordException;
+import com.example.Atlas.exception.UserNotFoundException;
+import com.example.Atlas.model.*;
 
 @RestController
 @RequestMapping("/user")
@@ -104,7 +108,37 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user profile: " + e.getMessage());
         }
     }
+    
+    @PutMapping("/{userId}/password")
+    public ResponseEntity<?> updatePassword(@PathVariable int userId,
+                                            @RequestBody PasswordUpdateRequest request) {
+        try {
+            userserv.updatePassword(userId, request.getCurrentPassword(), request.getNewPassword());
+            return ResponseEntity.ok().build();
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.badRequest().body("Invalid current password: " + e.getMessage());
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    
+    @GetMapping("/userCount")
+    public Map<String, Integer> getUserCount() {
+        Map<String, Integer> response = new HashMap<>();
+        Integer userCount = userserv.getUserCount();
+        response.put("userCount", userCount);
+        return response;
+    }
 
+    @GetMapping("/getAllUsers")
+    public List<UserEntity> getAllUsers() {
+        return userserv.getAllUsers();
+    }
+
+    @GetMapping("/roles")
+    public List<Map<String, Object>> getUserCountByRole() {
+        return userserv.getUserCountByRole();
+    }
   
     
    

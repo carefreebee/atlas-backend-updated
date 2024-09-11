@@ -19,6 +19,10 @@ import org.springframework.http.ResponseEntity;
 
 import com.example.Atlas.Entity.DepartmentEntity;
 import com.example.Atlas.Service.DepartmentService;
+import com.example.Atlas.Service.OpportunityService;
+import com.example.Atlas.Service.StrengthService;
+import com.example.Atlas.Service.ThreatService;
+import com.example.Atlas.Service.WeaknessService;
 
 
 @RestController
@@ -27,6 +31,14 @@ import com.example.Atlas.Service.DepartmentService;
 public class DepartmentController {
     @Autowired
     DepartmentService departserv;
+    @Autowired
+    StrengthService strengthService;
+    @Autowired
+    WeaknessService weaknessService;
+    @Autowired
+    OpportunityService opportunityService;
+    @Autowired
+    ThreatService threatService;
 
 
      @PostMapping("/register")
@@ -44,7 +56,14 @@ public class DepartmentController {
     Map<String, List<DepartmentEntity>> response = new HashMap<>();
     response.put("departments", departserv.getAllDepartment());
     return response;
-}  
+   }  
+   
+   @GetMapping("/getDepartmentCount")
+   public Map<String, Integer> getDepartmentCount() {
+       Map<String, Integer> response = new HashMap<>();
+       response.put("departmentCount", departserv.getDepartmentCount());
+       return response;
+   }
 
      @GetMapping("/{departmentId}")
     public DepartmentEntity getProfileData(@PathVariable("departmentId") int departmentId) {
@@ -75,6 +94,44 @@ public class DepartmentController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update department profile: " + e.getMessage());
         }
     }
+
+    @GetMapping("/departmentUserCounts")
+    public ResponseEntity<Map<String, Integer>> getUserCountsPerDepartment() {
+        Map<String, Integer> departmentUserCounts = departserv.getUserCountsPerDepartment();
+        return ResponseEntity.ok(departmentUserCounts);
+    }
+
+    @GetMapping("/universityCount")
+    public Map<String, Integer> getUniversityCount() {
+        Map<String, Integer> response = new HashMap<>();
+        response.put("universityCount", departserv.getUniversityCount());
+        return response;
+    }
+
+    @GetMapping("/strengthCountByDepartment")
+    public ResponseEntity<Map<String, Integer>> getStrengthCountByDepartment() {
+        Map<String, Integer> strengthCountMap = strengthService.getStrengthCountByDepartment();
+        return ResponseEntity.ok(strengthCountMap);
+    }
+
+    @GetMapping("/weaknessCountByDepartment")
+    public ResponseEntity<Map<String, Integer>> getWeaknessCountByDepartment() {
+        Map<String, Integer> weaknessCountMap = weaknessService.getWeaknessCountByDepartment();
+        return ResponseEntity.ok(weaknessCountMap);
+    }
+
+    @GetMapping("/opportunityCountByDepartment")
+    public ResponseEntity<Map<String, Integer>> getOpportunityCountByDepartment() {
+        Map<String, Integer> opportunityCountMap = opportunityService.getOpportunityCountByDepartment();
+        return ResponseEntity.ok(opportunityCountMap);
+    }
+
+    @GetMapping("/threatCountByDepartment")
+    public ResponseEntity<Map<String, Integer>> getThreatCountByDepartment() {
+        Map<String, Integer> threatCountMap = threatService.getThreatCountByDepartment();
+        return ResponseEntity.ok(threatCountMap);
+    }
+
 
     
 }
