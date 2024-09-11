@@ -54,6 +54,19 @@ public class BscController {
         }
     }
 
+    @GetMapping("/financialBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestFinancialId() {
+        Integer latestId = bscserv.getLatestFinancialId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
     @PutMapping("/financial/update/{id}")
     public ResponseEntity<FinancialEntity> updateFinancialBsc(@PathVariable int id,
             @RequestBody FinancialEntity request) {
@@ -85,6 +98,19 @@ public class BscController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/stakeholderBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestStakeholderId() {
+        Integer latestId = bscserv.getLatestStakeholderId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
         }
     }
 
@@ -122,6 +148,19 @@ public class BscController {
         }
     }
 
+    @GetMapping("/learningBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestLearningId() {
+        Integer latestId = bscserv.getLatestLearningId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
     @PutMapping("/learning/update/{id}")
     public ResponseEntity<LearningEntity> updateLearningBsc(@PathVariable int id,
             @RequestBody LearningEntity request) {
@@ -153,6 +192,19 @@ public class BscController {
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/internalBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestInternalId() {
+        Integer latestId = bscserv.getLatestInternalId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
         }
     }
 

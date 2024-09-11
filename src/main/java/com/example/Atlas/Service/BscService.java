@@ -46,6 +46,11 @@ public class BscService {
         return financialrepo.findByDepartmentId(departmentId);
     }
 
+    public Integer getLatestFinancialId() {
+        FinancialEntity latestFinancial = financialrepo.findTopByOrderByIdDesc();
+        return latestFinancial != null ? latestFinancial.getId() : null;
+    }
+
     public FinancialEntity updateFinancialBscById(int id, FinancialEntity request) {
         Optional<FinancialEntity> optionalFinancial = financialrepo.findById(id);
         if (optionalFinancial.isPresent()) {
@@ -96,6 +101,11 @@ public class BscService {
         return stakeholderrepo.findByDepartmentId(departmentId);
     }
 
+    public Integer getLatestStakeholderId() {
+        StakeholderEntity latestStakeholder = stakeholderrepo.findTopByOrderByIdDesc();
+        return latestStakeholder != null ? latestStakeholder.getId() : null;
+    }
+
     public StakeholderEntity updateStakeholderBscById(int id, StakeholderEntity request) {
         Optional<StakeholderEntity> optionalStakeholder = stakeholderrepo.findById(request.getId());
         if (optionalStakeholder.isPresent()) {
@@ -144,6 +154,11 @@ public class BscService {
         return learningrepo.findByDepartmentId(departmentId);
     }
 
+    public Integer getLatestLearningId() {
+        LearningEntity latestLearning = learningrepo.findTopByOrderByIdDesc();
+        return latestLearning != null ? latestLearning.getId() : null;
+    }
+
     public LearningEntity updateLearningBscById(int id, LearningEntity request) {
         Optional<LearningEntity> optionalLearning = learningrepo.findById(request.getId());
         if (optionalLearning.isPresent()) {
@@ -190,6 +205,11 @@ public class BscService {
 
     public List<InternalEntity> findInternalByDepartmentId(int departmentId) {
         return internalrepo.findByDepartmentId(departmentId);
+    }
+
+    public Integer getLatestInternalId() {
+        InternalEntity latestInternal = internalrepo.findTopByOrderByIdDesc();
+        return latestInternal != null ? latestInternal.getId() : null;
     }
 
     public InternalEntity updateInternalBscById(int id, InternalEntity request) {

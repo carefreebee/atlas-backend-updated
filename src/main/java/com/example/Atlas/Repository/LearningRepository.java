@@ -10,5 +10,5 @@ public interface LearningRepository extends JpaRepository<LearningEntity, Intege
 
     List<LearningEntity> findByDepartmentId(int departmentId);
 
-    
+    LearningEntity findTopByOrderByIdDesc();
 }
