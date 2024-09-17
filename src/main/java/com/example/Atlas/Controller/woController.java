@@ -1,5 +1,7 @@
 package com.example.Atlas.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -46,16 +48,23 @@ public class woController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteWo(@PathVariable int id) {
-        try {
-            woserv.deleteWo(id);
-            return ResponseEntity.ok("W-O with ID " + id + " deleted successfully");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to delete W-O: " + e.getMessage());
-        }
+public ResponseEntity<Map<String, String>> deleteWo(@PathVariable int id) {
+    Map<String, String> response = new HashMap<>();
+    
+    try {
+        woserv.deleteWo(id); // Make sure this throws a NoSuchElementException if the ID does not exist
+        response.put("message", "W-O with ID " + id + " deleted successfully");
+        return ResponseEntity.ok(response);
+        
+    } catch (NoSuchElementException e) {
+        response.put("error", "W-O with ID " + id + " not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        
+    } catch (Exception e) {
+        response.put("error", "Failed to delete W-O: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+}
+
     
 }

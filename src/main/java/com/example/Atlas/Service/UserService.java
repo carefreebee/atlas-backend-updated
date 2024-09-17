@@ -98,22 +98,6 @@ public class UserService {
     }
 
 
-
-    public String updateUserGeneratedAiStrats(String username) {
-       UserEntity user = userrepo.findByUsername(username);
-        if (user == null) {
-            return "User not found";
-        }
-
-        if (user.getGeneratedAiStrats() == 0) {
-            user.setGeneratedAiStrats(1);
-            userrepo.save(user);
-            return "User updated successfully";
-        }
-
-        return "User already has generatedAiStrats set";
-    }
-
     public void updatePassword(int userId, String currentPassword, String newPassword) {
         UserEntity user = userrepo.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));

@@ -206,38 +206,50 @@ public class StratmapService {
 
     @Transactional
     public void financialClearTable() {
-        // 1. DELETE FROM 
-        entityManager.createNativeQuery("DELETE FROM financial_bsc").executeUpdate();
+        // 1. DELETE FROM where user_generated = 0
+        entityManager.createNativeQuery("DELETE FROM financial_bsc WHERE user_generated = 0").executeUpdate();
 
-        // 2. Reset Auto-Increment (MySQL Example) 
-        entityManager.createNativeQuery("ALTER TABLE financial_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        // 2. Reset Auto-Increment (MySQL Example) - Only if rows were deleted
+        int deletedRows = entityManager.createNativeQuery("SELECT ROW_COUNT()").getFirstResult();
+        if (deletedRows > 0) {
+            entityManager.createNativeQuery("ALTER TABLE financial_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        }
     }
 
     @Transactional
     public void stakeholderClearTable() {
-        // 1. DELETE FROM 
-        entityManager.createNativeQuery("DELETE FROM stakeholder_bsc").executeUpdate();
+        // 1. DELETE FROM where user_generated = 0
+        entityManager.createNativeQuery("DELETE FROM stakeholder_bsc WHERE user_generated = 0").executeUpdate();
 
-        // 2. Reset Auto-Increment (MySQL Example) 
-        entityManager.createNativeQuery("ALTER TABLE stakeholder_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        // 2. Reset Auto-Increment (MySQL Example) - Only if rows were deleted
+        int deletedRows = entityManager.createNativeQuery("SELECT ROW_COUNT()").getFirstResult();
+        if (deletedRows > 0) {
+            entityManager.createNativeQuery("ALTER TABLE stakeholder_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        }
     }
 
     @Transactional
     public void learningClearTable() {
-        // 1. DELETE FROM 
-        entityManager.createNativeQuery("DELETE FROM learning_bsc").executeUpdate();
+        // 1. DELETE FROM where user_generated = 0
+        entityManager.createNativeQuery("DELETE FROM learning_bsc WHERE user_generated = 0").executeUpdate();
 
-        // 2. Reset Auto-Increment (MySQL Example) 
-        entityManager.createNativeQuery("ALTER TABLE learning_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        // 2. Reset Auto-Increment (MySQL Example) - Only if rows were deleted
+        int deletedRows = entityManager.createNativeQuery("SELECT ROW_COUNT()").getFirstResult();
+        if (deletedRows > 0) {
+            entityManager.createNativeQuery("ALTER TABLE learning_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        }
     }
 
     @Transactional
     public void internalClearTable() {
-        // 1. DELETE FROM 
-        entityManager.createNativeQuery("DELETE FROM internal_bsc").executeUpdate();
+        // 1. DELETE FROM where user_generated = 0
+        entityManager.createNativeQuery("DELETE FROM internal_bsc WHERE user_generated = 0").executeUpdate();
 
-        // 2. Reset Auto-Increment (MySQL Example) 
-        entityManager.createNativeQuery("ALTER TABLE internal_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        // 2. Reset Auto-Increment (MySQL Example) - Only if rows were deleted
+        int deletedRows = entityManager.createNativeQuery("SELECT ROW_COUNT()").getFirstResult();
+        if (deletedRows > 0) {
+            entityManager.createNativeQuery("ALTER TABLE internal_bsc AUTO_INCREMENT = 1").executeUpdate(); 
+        }
     }
     
 }

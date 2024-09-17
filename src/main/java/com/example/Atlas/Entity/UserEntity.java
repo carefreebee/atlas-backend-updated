@@ -44,10 +44,6 @@ public class UserEntity {
     @JoinColumn(name = "department_id") // Specify the foreign key column
     private DepartmentEntity department;
 
-    @Column(columnDefinition = "tinyint DEFAULT '0'")
-    private int generatedAiStrats;
-
-
     // Getters and setters for id
     public int getId() {
         return id;
@@ -139,13 +135,5 @@ public class UserEntity {
         this.department = department;
     }
 
-    // Getters and setters for generatedAiStrats
-    public int getGeneratedAiStrats() {
-        return generatedAiStrats;
-    }
-
-    public void setGeneratedAiStrats(int generatedAiStrats) {
-        this.generatedAiStrats = generatedAiStrats;
-    }
 
 }

@@ -1,8 +1,10 @@
 package com.example.Atlas.Controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -46,18 +48,37 @@ public class wtController {
         }
     }
 
+    // @DeleteMapping("/delete/{id}")
+    // public ResponseEntity<String> deleteWt(@PathVariable int id) {
+    //     try {
+    //         wtserv.deleteWt(id);
+    //         return ResponseEntity.ok("W-T with ID " + id + " deleted successfully");
+    //     } catch (NoSuchElementException e) {
+    //         return ResponseEntity.notFound().build();
+    //     } catch (Exception e) {
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    //                 .body("Failed to delete W-T: " + e.getMessage());
+    //     }
+    // }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteWt(@PathVariable int id) {
-        try {
-            wtserv.deleteWt(id);
-            return ResponseEntity.ok("W-T with ID " + id + " deleted successfully");
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to delete W-T: " + e.getMessage());
-        }
+public ResponseEntity<Map<String, String>> deleteWt(@PathVariable int id) {
+    Map<String, String> response = new HashMap<>();
+    
+    try {
+        wtserv.deleteWt(id); // Make sure this throws a NoSuchElementException if the ID does not exist
+        response.put("message", "W-T with ID " + id + " deleted successfully");
+        return ResponseEntity.ok(response);
+        
+    } catch (NoSuchElementException e) {
+        response.put("error", "W-T with ID " + id + " not found");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        
+    } catch (Exception e) {
+        response.put("error", "Failed to delete W-T: " + e.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
+}
 
 
     

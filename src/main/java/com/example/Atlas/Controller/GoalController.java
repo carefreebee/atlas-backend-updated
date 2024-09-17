@@ -32,8 +32,11 @@ public class GoalController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<GoalEntity> addGoal(@RequestBody GoalEntity goal) {
-        GoalEntity savedGoal = goalService.saveGoal(goal);
+    public ResponseEntity<GoalEntity> addGoal(
+            @RequestBody GoalEntity goal,
+            @RequestParam int departmentId) {
+
+        GoalEntity savedGoal = goalService.saveGoal(goal, departmentId);
         return ResponseEntity.ok(savedGoal);
     }
 
@@ -73,13 +76,13 @@ public class GoalController {
         }
     }
 
-    @GetMapping("/latest")
-    public ResponseEntity<?> getLatestGoal() {
+    @GetMapping("/latest/{departmentId}")
+    public ResponseEntity<?> getLatestGoalByDepartmentId(@PathVariable("departmentId") int departmentId) {
         try {
-            GoalEntity goal = goalService.getLatestGoal();
+            GoalEntity goal = goalService.getLatestGoalsByDepartmentId(departmentId);
             return ResponseEntity.ok(goal);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No goals found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No goals found for department id " + departmentId);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }

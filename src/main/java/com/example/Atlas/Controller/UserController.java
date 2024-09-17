@@ -78,11 +78,7 @@ public class UserController {
         return userserv.getUserByUsername(username);
     }
     
-  
-    @PutMapping("/update/{username}")
-    public String updateUser(@PathVariable String username) {
-        return userserv.updateUserGeneratedAiStrats(username);
-    }
+
 
     @PutMapping("/update/profile/{user_id}")
     public ResponseEntity<String> updateUserProfile(
