@@ -13,15 +13,23 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.Atlas.Entity.DepartmentEntity;
+import com.example.Atlas.Entity.primaryFinancialEntity;
 import com.example.Atlas.Entity.FinancialEntity;
 import com.example.Atlas.Entity.StakeholderEntity;
+import com.example.Atlas.Entity.primaryStakeholderEntity;
 import com.example.Atlas.Entity.LearningEntity;
+import com.example.Atlas.Entity.primaryLearningEntity;
 import com.example.Atlas.Entity.InternalEntity;
+import com.example.Atlas.Entity.primaryInternalEntity;
 import com.example.Atlas.Repository.DepartmentRepository;
 import com.example.Atlas.Repository.FinancialRepository;
 import com.example.Atlas.Repository.InternalRepository;
+import com.example.Atlas.Repository.primaryInternalRepository;
+import com.example.Atlas.Repository.primaryLearningRepository;
 import com.example.Atlas.Repository.LearningRepository;
 import com.example.Atlas.Repository.StakeholderRepository;
+import com.example.Atlas.Repository.primaryFinancialRepository;
+import com.example.Atlas.Repository.primaryStakeholderRepository;
 
 @Service
 public class StratmapService {
@@ -37,11 +45,24 @@ public class StratmapService {
     @Autowired
     InternalRepository internalrepo;
 
-     @Autowired
+    @Autowired
     DepartmentRepository departmentrepo;
 
     @Autowired
+    primaryFinancialRepository primaryfinancialrepo;
+
+    @Autowired
+    primaryStakeholderRepository primarystakeholderrepo;
+
+    @Autowired
+    primaryInternalRepository primaryinternalrepo;
+
+    @Autowired
+    primaryLearningRepository primarylearningrepo;
+
+    @Autowired
     private EntityManager entityManager;
+
 
 
     public Map<String, Object> getStrategiesByDepartmentId(int departmentId) {
@@ -103,8 +124,16 @@ public class StratmapService {
         // Save the updated entity to the database
         return financialrepo.save(existingEntity);
     }
-    
 
+    public primaryFinancialEntity insertPrimaryFinancial(primaryFinancialEntity request) {
+        DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
+        request.setDepartment(department);
+        return primaryfinancialrepo.save(request);
+    }
+    
+    public List<primaryFinancialEntity> getPrimaryFinancialByDepartmentId(int departmentId) {
+        return primaryfinancialrepo.findByDepartmentId(departmentId);
+    }
 
     public StakeholderEntity insertStakeholder(StakeholderEntity request) {
         DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
@@ -137,8 +166,17 @@ public class StratmapService {
         // Save the updated entity to the database
         return stakeholderrepo.save(existingEntity);
     }
-    
 
+    public primaryStakeholderEntity insertPrimaryStakeholder(primaryStakeholderEntity request) {
+        DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
+        request.setDepartment(department);
+        return primarystakeholderrepo.save(request);
+    }
+
+    public List<primaryStakeholderEntity> getPrimaryStakeholderByDepartmentId(int departmentId) {
+        return primarystakeholderrepo.findByDepartmentId(departmentId);
+    }
+    
     public LearningEntity insertLearning (LearningEntity request) {
         DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
         request.setDepartment(department);
@@ -169,7 +207,17 @@ public class StratmapService {
         } else 
             msg = "Learning "+learningId+" does not exist!";
             return msg;
-    } 
+    }
+    
+    public primaryLearningEntity insertPrimaryLearning(primaryLearningEntity request) {
+        DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
+        request.setDepartment(department);
+        return primarylearningrepo.save(request);
+    }
+
+    public List<primaryLearningEntity> getPrimaryLearningByDepartmentId(int departmentId) {
+        return primarylearningrepo.findByDepartmentId(departmentId);
+    }
 
     public InternalEntity insertInternal (InternalEntity request) {
         DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
@@ -202,7 +250,17 @@ public class StratmapService {
         } else 
             msg = "Learning "+internalId+" does not exist!";
             return msg;
-    } 
+    }
+
+    public List<primaryInternalEntity> getPrimaryInternalByDepartmentId(int departmentId) {
+        return primaryinternalrepo.findByDepartmentId(departmentId);
+    }
+
+    public primaryInternalEntity insertPrimaryInternal(primaryInternalEntity request) {
+        DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("Department not found"));
+        request.setDepartment(department);
+        return primaryinternalrepo.save(request);
+    }
 
     @Transactional
     public void financialClearTable() {
