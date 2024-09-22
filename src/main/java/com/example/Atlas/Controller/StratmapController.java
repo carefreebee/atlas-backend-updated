@@ -20,9 +20,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.example.Atlas.Entity.FinancialEntity;
+import com.example.Atlas.Entity.primaryFinancialEntity;
 import com.example.Atlas.Entity.StakeholderEntity;
+import com.example.Atlas.Entity.primaryStakeholderEntity;
 import com.example.Atlas.Entity.LearningEntity;
+import com.example.Atlas.Entity.primaryLearningEntity;
 import com.example.Atlas.Entity.InternalEntity;
+import com.example.Atlas.Entity.primaryInternalEntity;
 import com.example.Atlas.Repository.DepartmentRepository;
 import com.example.Atlas.Repository.FinancialRepository;
 import com.example.Atlas.Service.StratmapService;
@@ -73,6 +77,24 @@ public class StratmapController {
         }
     }
 
+    @PostMapping("/primaryFinancial/insert")
+    public primaryFinancialEntity insertPrimaryFinancial(@RequestBody primaryFinancialEntity primaryFinancial) {
+        return stratmapserv.insertPrimaryFinancial(primaryFinancial);
+    }
+
+    @GetMapping("primaryFinancial/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryFinancialByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryFinancialEntity> primaryFinancial = stratmapserv.getPrimaryFinancialByDepartmentId(departmentId);
+            if (primaryFinancial != null && !primaryFinancial.isEmpty()) {
+                return ResponseEntity.ok(primaryFinancial);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary financial found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
 
       @DeleteMapping("financial/delete/{id}")
     public ResponseEntity<String> deleteFinancial(@PathVariable int id) {
@@ -100,6 +122,26 @@ public class StratmapController {
         }
     }
 
+    @PostMapping("/primaryStakeholder/insert")
+    public primaryStakeholderEntity insertPrimaryStakeholder(@RequestBody primaryStakeholderEntity primaryStakeholder) {
+        return stratmapserv.insertPrimaryStakeholder(primaryStakeholder);
+    }
+
+    @GetMapping("primaryStakeholder/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryStakeholderByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryStakeholderEntity> primaryStakeholder = stratmapserv.getPrimaryStakeholderByDepartmentId(departmentId);
+            if (primaryStakeholder != null && !primaryStakeholder.isEmpty()) {
+                return ResponseEntity.ok(primaryStakeholder);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary stakeholder found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+
+        }
+    }
+
     @DeleteMapping("learning/delete/{id}")
     public ResponseEntity<String> deleteLearning(@PathVariable int id) {
         try {
@@ -124,6 +166,26 @@ public class StratmapController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to delete internal: " + e.getMessage());
         }
+    }
+
+    @GetMapping("primaryInternal/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryInternalByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryInternalEntity> primaryInternal = stratmapserv.getPrimaryInternalByDepartmentId(departmentId);
+            if (primaryInternal != null && !primaryInternal.isEmpty()) {
+                return ResponseEntity.ok(primaryInternal);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary internal found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+
+        }
+    }
+
+    @PostMapping("/primaryInternal/insert")
+    public primaryInternalEntity insertPrimaryInternal(@RequestBody primaryInternalEntity primaryInternal) {
+        return stratmapserv.insertPrimaryInternal(primaryInternal);
     }
 
     @PostMapping("/stakeholder/insert")
@@ -167,8 +229,24 @@ public class StratmapController {
         }
     }
 
-  
-    
+    @PostMapping("/primaryLearning/insert")
+    public primaryLearningEntity insertPrimaryLearning(@RequestBody primaryLearningEntity primaryLearning) {
+        return stratmapserv.insertPrimaryLearning(primaryLearning);
+    }
+
+    @GetMapping("primaryLearning/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryLearningByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryLearningEntity> primaryLearning = stratmapserv.getPrimaryLearningByDepartmentId(departmentId);
+            if (primaryLearning != null && !primaryLearning.isEmpty()) {
+                return ResponseEntity.ok(primaryLearning);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary learning found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
 
     @PostMapping("/internal/insert")
     public InternalEntity insertInternal(@RequestBody InternalEntity internal) {
