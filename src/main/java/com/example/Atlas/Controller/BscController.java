@@ -21,6 +21,10 @@ import com.example.Atlas.Entity.FinancialEntity;
 import com.example.Atlas.Entity.InternalEntity;
 import com.example.Atlas.Entity.LearningEntity;
 import com.example.Atlas.Entity.StakeholderEntity;
+import com.example.Atlas.Entity.primaryFinancialEntity;
+import com.example.Atlas.Entity.primaryInternalEntity;
+import com.example.Atlas.Entity.primaryLearningEntity;
+import com.example.Atlas.Entity.primaryStakeholderEntity;
 import com.example.Atlas.Repository.DepartmentRepository;
 import com.example.Atlas.Service.BscService;
 
@@ -251,5 +255,169 @@ public class BscController {
         int count = bscserv.getInternalCount();
         response.put("count", count);
         return response;
+    }
+
+    // Primary Functions
+
+    // Primary Financial
+    @PostMapping("primaryFinancialBsc/insert")
+    public primaryFinancialEntity insertPrimaryFinancialBsc(@RequestBody primaryFinancialEntity financial) {
+        return bscserv.insertPrimaryFinancialBsc(financial);
+    }
+
+    @GetMapping("primaryFinancial/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryFinancialByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryFinancialEntity> financial = bscserv.findPrimaryFinancialByDepartmentId(departmentId);
+            if (financial != null && !financial.isEmpty()) {
+                return ResponseEntity.ok(financial);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary financial found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/primaryFinancialBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestPrimaryFinancialId() {
+        Integer latestId = bscserv.getLatestPrimaryFinancialId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
+    @PutMapping("/primaryFinancial/update/{id}")
+    public ResponseEntity<primaryFinancialEntity> updatePrimaryFinancialBsc(@PathVariable int id,
+            @RequestBody primaryFinancialEntity request) {
+        try {
+            primaryFinancialEntity updatedFinancial = bscserv.updatePrimaryFinancialBscById(id, request);
+            return ResponseEntity.ok(updatedFinancial);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // Primary Stakeholder
+    @PostMapping("primaryStakeholderBsc/insert")
+    public primaryStakeholderEntity insertPrimaryStakeholderBsc(@RequestBody primaryStakeholderEntity stakeholder) {
+        return bscserv.insertPrimaryStakeholderBsc(stakeholder);
+    }
+
+    @GetMapping("primaryStakeholder/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryStakeholderByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryStakeholderEntity> stakeholder = bscserv.findPrimaryStakeholderByDepartmentId(departmentId);
+            if (stakeholder != null && !stakeholder.isEmpty()) {
+                return ResponseEntity.ok(stakeholder);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary stakeholder found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    // Primary Internal
+    @PostMapping("primaryInternalBsc/insert")
+    public primaryInternalEntity insertPrimaryInternalBsc(@RequestBody primaryInternalEntity internal) {
+        return bscserv.insertPrimaryInternalBsc(internal);
+    }
+
+    @GetMapping("primaryInternal/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryInternalByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryInternalEntity> internal = bscserv.findPrimaryInternalByDepartmentId(departmentId);
+            if (internal != null && !internal.isEmpty()) {
+                return ResponseEntity.ok(internal);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary internal found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/primaryInternalBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestPrimaryInternalId() {
+        Integer latestId = bscserv.getLatestPrimaryInternalId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
+    @PutMapping("/primaryInternal/update/{id}")
+    public ResponseEntity<primaryInternalEntity> updatePrimaryInternalBsc(@PathVariable int id,
+            @RequestBody primaryInternalEntity request) {
+        try {
+            primaryInternalEntity updatedInternal = bscserv.updatePrimaryInternalBscById(id, request);
+            return ResponseEntity.ok(updatedInternal);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    // Primary Learning
+    @PostMapping("primaryLearningBsc/insert")
+    public primaryLearningEntity insertPrimaryLearningBsc(@RequestBody primaryLearningEntity learning) {
+        return bscserv.insertPrimaryLearningBsc(learning);
+    }
+
+    @GetMapping("primaryLearning/get/{departmentId}")
+    public ResponseEntity<?> getPrimaryLearningByDepartmentId(@PathVariable int departmentId) {
+        try {
+            List<primaryLearningEntity> learning = bscserv.findPrimaryLearningByDepartmentId(departmentId);
+            if (learning != null && !learning.isEmpty()) {
+                return ResponseEntity.ok(learning);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary learning found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/primaryLearningBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestPrimaryLearningId() {
+        Integer latestId = bscserv.getLatestPrimaryLearningId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
+    @PutMapping("/primaryLearning/update/{id}")
+    public ResponseEntity<primaryLearningEntity> updatePrimaryLearningBsc(@PathVariable int id,
+            @RequestBody primaryLearningEntity request) {
+        try {
+            primaryLearningEntity updatedLearning = bscserv.updatePrimaryLearningBscById(id, request);
+            return ResponseEntity.ok(updatedLearning);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 }

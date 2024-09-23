@@ -1,7 +1,5 @@
 package com.example.Atlas.Entity;
 
-import java.time.LocalDate;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +20,7 @@ public class FinancialEntity {
 
     private String office_target;
 
-    private LocalDate startDate;
-
-    private LocalDate completionDate;
+    private String metric;
 
     private String status;
 
@@ -33,8 +29,6 @@ public class FinancialEntity {
     private Float target_performance;
 
     private Float actual_performance;
-
-    private String semester;
 
     private String actions;
 
@@ -74,23 +68,6 @@ public class FinancialEntity {
 
     public void setOffice_target(String office_target) {
         this.office_target = office_target;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDate startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDate getCompletionDate() {
-        return completionDate;
-    }
-
-    public void setCompletionDate(LocalDate completionDate) {
-        this.completionDate = completionDate;
-
     }
 
     public String getStatus() {
@@ -134,14 +111,6 @@ public class FinancialEntity {
         this.department = department;
     }
 
-    public String getSemester() {
-        return semester;
-    }
-
-    public void setSemester(String semester) {
-        this.semester = semester;
-    }
-
     public String getActions() {
         return actions;
     }
@@ -182,4 +151,11 @@ public class FinancialEntity {
         this.user_generated = user_generated;
     }
 
+    public String getMetric() {
+        return metric;
+    }
+
+    public void setMetric(String metric) {
+        this.metric = metric;
+    }
 }
