@@ -265,7 +265,7 @@ public class BscController {
         return bscserv.insertPrimaryFinancialBsc(financial);
     }
 
-    @GetMapping("primaryFinancial/get/{departmentId}")
+    @GetMapping("primaryFinancialBsc/get/{departmentId}")
     public ResponseEntity<?> getPrimaryFinancialByDepartmentId(@PathVariable int departmentId) {
         try {
             List<primaryFinancialEntity> financial = bscserv.findPrimaryFinancialByDepartmentId(departmentId);
@@ -293,7 +293,7 @@ public class BscController {
         }
     }
 
-    @PutMapping("/primaryFinancial/update/{id}")
+    @PutMapping("/primaryFinancialBsc/update/{id}")
     public ResponseEntity<primaryFinancialEntity> updatePrimaryFinancialBsc(@PathVariable int id,
             @RequestBody primaryFinancialEntity request) {
         try {
@@ -312,7 +312,7 @@ public class BscController {
         return bscserv.insertPrimaryStakeholderBsc(stakeholder);
     }
 
-    @GetMapping("primaryStakeholder/get/{departmentId}")
+    @GetMapping("primaryStakeholderBsc/get/{departmentId}")
     public ResponseEntity<?> getPrimaryStakeholderByDepartmentId(@PathVariable int departmentId) {
         try {
             List<primaryStakeholderEntity> stakeholder = bscserv.findPrimaryStakeholderByDepartmentId(departmentId);
@@ -327,13 +327,39 @@ public class BscController {
         }
     }
 
+    @GetMapping("/primaryStakeholderBsc/getLatestId")
+    public ResponseEntity<Map<String, Integer>> getLatestPrimaryStakeholderId() {
+        Integer latestId = bscserv.getLatestPrimaryStakeholderId();
+        if (latestId != null) {
+            Map<String, Integer> response = new HashMap<>();
+            response.put("latestId", latestId);
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
+        }
+    }
+
+    @PutMapping("/primaryStakeholderBsc/update/{id}")
+    public ResponseEntity<primaryStakeholderEntity> updatePrimaryStakeholderBsc(@PathVariable int id,
+            @RequestBody primaryStakeholderEntity request) {
+        try {
+            primaryStakeholderEntity updatedStakeholder = bscserv.updatePrimaryStakeholderBscById(id, request);
+            return ResponseEntity.ok(updatedStakeholder);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
     // Primary Internal
     @PostMapping("primaryInternalBsc/insert")
     public primaryInternalEntity insertPrimaryInternalBsc(@RequestBody primaryInternalEntity internal) {
         return bscserv.insertPrimaryInternalBsc(internal);
     }
 
-    @GetMapping("primaryInternal/get/{departmentId}")
+    @GetMapping("primaryInternalBsc/get/{departmentId}")
     public ResponseEntity<?> getPrimaryInternalByDepartmentId(@PathVariable int departmentId) {
         try {
             List<primaryInternalEntity> internal = bscserv.findPrimaryInternalByDepartmentId(departmentId);
@@ -361,7 +387,7 @@ public class BscController {
         }
     }
 
-    @PutMapping("/primaryInternal/update/{id}")
+    @PutMapping("/primaryInternalBsc/update/{id}")
     public ResponseEntity<primaryInternalEntity> updatePrimaryInternalBsc(@PathVariable int id,
             @RequestBody primaryInternalEntity request) {
         try {
@@ -380,7 +406,7 @@ public class BscController {
         return bscserv.insertPrimaryLearningBsc(learning);
     }
 
-    @GetMapping("primaryLearning/get/{departmentId}")
+    @GetMapping("primaryLearningBsc/get/{departmentId}")
     public ResponseEntity<?> getPrimaryLearningByDepartmentId(@PathVariable int departmentId) {
         try {
             List<primaryLearningEntity> learning = bscserv.findPrimaryLearningByDepartmentId(departmentId);
@@ -408,7 +434,7 @@ public class BscController {
         }
     }
 
-    @PutMapping("/primaryLearning/update/{id}")
+    @PutMapping("/primaryLearningBsc/update/{id}")
     public ResponseEntity<primaryLearningEntity> updatePrimaryLearningBsc(@PathVariable int id,
             @RequestBody primaryLearningEntity request) {
         try {
