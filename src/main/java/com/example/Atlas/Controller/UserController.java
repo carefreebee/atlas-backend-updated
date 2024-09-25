@@ -78,7 +78,10 @@ public class UserController {
         return userserv.getUserByUsername(username);
     }
     
-
+    @GetMapping("getHasPrimaryStrats/{username}")
+    public int getHasPrimaryStrats(@PathVariable String username) {
+        return userserv.getHasPrimaryStrats(username);
+    }
 
     @PutMapping("/update/profile/{user_id}")
     public ResponseEntity<String> updateUserProfile(
@@ -136,6 +139,23 @@ public class UserController {
         return userserv.getUserCountByRole();
     }
   
-    
+    @PutMapping("/update/primaryStrats/{username}")
+    public ResponseEntity<String> updatePrimaryStrats(
+            @PathVariable("username") String username,
+            @RequestBody UserEntity request) {
+        try {
+            boolean success = userserv.updatePrimaryStrats(
+                   username,
+                   request.getHasPrimaryStrats()
+            );
+            if (success) {
+                return ResponseEntity.ok("User primary strats updated successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with username: " + username);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user primary strats: " + e.getMessage());
+        }
+    }
    
 }

@@ -44,6 +44,9 @@ public class UserEntity {
     @JoinColumn(name = "department_id") // Specify the foreign key column
     private DepartmentEntity department;
 
+    @Column(columnDefinition = "tinyint DEFAULT '0'")
+    private int hasPrimaryStrats;
+
     // Getters and setters for id
     public int getId() {
         return id;
@@ -135,5 +138,11 @@ public class UserEntity {
         this.department = department;
     }
 
+    public int getHasPrimaryStrats() {
+        return hasPrimaryStrats;
+    }
 
+    public void setHasPrimaryStrats(int hasPrimaryStrats) {
+        this.hasPrimaryStrats = hasPrimaryStrats;
+    }
 }
