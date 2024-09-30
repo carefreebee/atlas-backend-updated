@@ -67,7 +67,6 @@ public class UserController {
         return userserv.insertUser(user);
     }
 
-    
     @GetMapping("/{userId}")
     public UserEntity getProfileData(@PathVariable int userId) {
         return userserv.getUserById(userId);
@@ -77,7 +76,7 @@ public class UserController {
     public UserEntity getUser(@PathVariable String username) {
         return userserv.getUserByUsername(username);
     }
-    
+
     @GetMapping("getHasPrimaryStrats/{username}")
     public int getHasPrimaryStrats(@PathVariable String username) {
         return userserv.getHasPrimaryStrats(username);
@@ -89,14 +88,14 @@ public class UserController {
             @RequestBody UserEntity request) {
         try {
             boolean success = userserv.updateUserDetails(
-                   user_id,
-                   request.getFirstname(),
-                   request.getLastname(),
-                   request.getRole(),
-                   request.getEmail(),
-                   request.getAge(),
-                   request.getBirthdate()
-                   
+                    user_id,
+                    request.getFirstname(),
+                    request.getLastname(),
+                    request.getRole(),
+                    request.getEmail(),
+                    request.getAge(),
+                    request.getBirthdate()
+
             );
             if (success) {
                 return ResponseEntity.ok("User profile updated successfully.");
@@ -104,13 +103,14 @@ public class UserController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with ID: " + user_id);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user profile: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update user profile: " + e.getMessage());
         }
     }
-    
+
     @PutMapping("/{userId}/password")
     public ResponseEntity<?> updatePassword(@PathVariable int userId,
-                                            @RequestBody PasswordUpdateRequest request) {
+            @RequestBody PasswordUpdateRequest request) {
         try {
             userserv.updatePassword(userId, request.getCurrentPassword(), request.getNewPassword());
             return ResponseEntity.ok().build();
@@ -120,7 +120,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    
+
     @GetMapping("/userCount")
     public Map<String, Integer> getUserCount() {
         Map<String, Integer> response = new HashMap<>();
@@ -138,24 +138,24 @@ public class UserController {
     public List<Map<String, Object>> getUserCountByRole() {
         return userserv.getUserCountByRole();
     }
-  
+
     @PutMapping("/update/primaryStrats/{username}")
     public ResponseEntity<String> updatePrimaryStrats(
             @PathVariable("username") String username,
             @RequestBody UserEntity request) {
         try {
             boolean success = userserv.updatePrimaryStrats(
-                   username,
-                   request.getHasPrimaryStrats()
-            );
+                    username,
+                    request.getHasPrimaryStrats());
             if (success) {
                 return ResponseEntity.ok("User primary strats updated successfully.");
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with username: " + username);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user primary strats: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update user primary strats: " + e.getMessage());
         }
     }
-   
+
 }

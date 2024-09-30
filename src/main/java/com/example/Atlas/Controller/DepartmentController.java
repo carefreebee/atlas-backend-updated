@@ -1,6 +1,5 @@
 package com.example.Atlas.Controller;
 
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
@@ -24,7 +23,6 @@ import com.example.Atlas.Service.StrengthService;
 import com.example.Atlas.Service.ThreatService;
 import com.example.Atlas.Service.WeaknessService;
 
-
 @RestController
 @RequestMapping("/department")
 @CrossOrigin // Allow requests from this origin
@@ -40,8 +38,7 @@ public class DepartmentController {
     @Autowired
     ThreatService threatService;
 
-
-     @PostMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<String> registerDepartment(@RequestBody DepartmentEntity department) {
         try {
             departserv.department_register(department);
@@ -51,26 +48,26 @@ public class DepartmentController {
         }
     }
 
-     @GetMapping("/getAllDepartments")
+    @GetMapping("/getAllDepartments")
     public Map<String, List<DepartmentEntity>> getAllDepartments() {
-    Map<String, List<DepartmentEntity>> response = new HashMap<>();
-    response.put("departments", departserv.getAllDepartment());
-    return response;
-   }  
-   
-   @GetMapping("/getDepartmentCount")
-   public Map<String, Integer> getDepartmentCount() {
-       Map<String, Integer> response = new HashMap<>();
-       response.put("departmentCount", departserv.getDepartmentCount());
-       return response;
-   }
+        Map<String, List<DepartmentEntity>> response = new HashMap<>();
+        response.put("departments", departserv.getAllDepartment());
+        return response;
+    }
 
-     @GetMapping("/{departmentId}")
+    @GetMapping("/getDepartmentCount")
+    public Map<String, Integer> getDepartmentCount() {
+        Map<String, Integer> response = new HashMap<>();
+        response.put("departmentCount", departserv.getDepartmentCount());
+        return response;
+    }
+
+    @GetMapping("/{departmentId}")
     public DepartmentEntity getProfileData(@PathVariable("departmentId") int departmentId) {
         return departserv.getDepartmentById(departmentId);
     }
 
-     @PutMapping("/update/{departmentId}")
+    @PutMapping("/update/{departmentId}")
     public ResponseEntity<String> updateDepartmentProfile(
             @PathVariable("departmentId") int departmentId,
             @RequestBody DepartmentEntity request) {
@@ -83,15 +80,17 @@ public class DepartmentController {
                     request.getEmail(),
                     request.getUniversity(),
                     request.getDescription()
-                   
+
             );
             if (success) {
                 return ResponseEntity.ok("Department profile updated successfully.");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Department not found with ID: " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Department not found with ID: " + departmentId);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update department profile: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update department profile: " + e.getMessage());
         }
     }
 
@@ -132,6 +131,4 @@ public class DepartmentController {
         return ResponseEntity.ok(threatCountMap);
     }
 
-
-    
 }

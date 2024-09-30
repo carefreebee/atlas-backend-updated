@@ -16,7 +16,7 @@ public class primaryLearningEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String target_code;
+    private String targetCode;
     private String office_target;
     private String metric;
     private String status;
@@ -44,11 +44,11 @@ public class primaryLearningEntity {
     }
 
     public String getTarget_code() {
-        return target_code;
+        return targetCode;
     }
 
-    public void setTarget_code(String target_code) {
-        this.target_code = target_code;
+    public void setTarget_code(String targetCode) {
+        this.targetCode = targetCode;
     }
 
     public String getOffice_target() {

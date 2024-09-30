@@ -1,5 +1,6 @@
 package com.example.Atlas.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.NoSuchElementException;
@@ -295,6 +296,7 @@ public class BscService {
 
     public primaryFinancialEntity updatePrimaryFinancialBscById(int id, primaryFinancialEntity request) {
         Optional<primaryFinancialEntity> optionalPrimaryFinancial = primaryFinancialrepo.findById(request.getId());
+        
         if (optionalPrimaryFinancial.isPresent()) {
             primaryFinancialEntity existingPrimaryFinancial = optionalPrimaryFinancial.get();
             if (request.getTarget_code() != null)

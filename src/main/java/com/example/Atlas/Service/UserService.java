@@ -1,6 +1,5 @@
 package com.example.Atlas.Service;
 
-
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ import com.example.Atlas.Repository.DepartmentRepository;
 import com.example.Atlas.Repository.UserRepository;
 import com.example.Atlas.exception.*;
 
-
-
 @Service
 public class UserService {
     @Autowired
@@ -28,18 +25,37 @@ public class UserService {
 
     @Autowired
     DepartmentRepository departmentrepo;
-    
-     @Autowired
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
-   
-    
     public UserEntity insertUser(UserEntity request) {
-        DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() -> new NoSuchElementException("User not found"));
-        request.setDepartment(department);
+        // Check if the user is in the QA role and does not have a department
+        if (request.getDepartment() == null) {
+            // If no department is provided (QA role), simply set it to null
+            request.setDepartment(null);
+        } else {
+            // If a department is provided, ensure it exists in the database
+            DepartmentEntity department = departmentrepo.findById(request.getDepartment().getId())
+                    .orElseThrow(() -> new NoSuchElementException("Department not found"));
+            request.setDepartment(department);
+        }
+
+        // Encode the password before saving the user
         request.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        // Save the user entity to the database
         return userrepo.save(request);
     }
+
+    // public UserEntity insertUser(UserEntity request) {
+    // DepartmentEntity department =
+    // departmentrepo.findById(request.getDepartment().getId()).orElseThrow(() ->
+    // new NoSuchElementException("User not found"));
+    // request.setDepartment(department);
+    // request.setPassword(passwordEncoder.encode(request.getPassword()));
+    // return userrepo.save(request);
+    // }
 
     // Verify the password during login
     public boolean checkPassword(String rawPassword, String encodedPassword) {
@@ -53,7 +69,7 @@ public class UserService {
     public boolean checkUserNameExists(String username) {
         return userrepo.existsByUsername(username);
     }
-    
+
     public UserEntity getUserByUsername(String username) {
         return userrepo.findByUsername(username);
     }
@@ -63,7 +79,6 @@ public class UserService {
         Optional<UserEntity> UserOptional = userrepo.findById(id);
         return UserOptional.orElse(null);
     }
-    
 
     public boolean updateUserDetails(
             int id,
@@ -97,7 +112,6 @@ public class UserService {
         }
     }
 
-
     public void updatePassword(int userId, String currentPassword, String newPassword) {
         UserEntity user = userrepo.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
@@ -112,7 +126,7 @@ public class UserService {
         user.setPassword(encodedNewPassword);
         userrepo.save(user);
     }
-    
+
     public int getUserCount() {
         return (int) userrepo.count();
     }
@@ -124,12 +138,12 @@ public class UserService {
     public List<Map<String, Object>> getUserCountByRole() {
         List<UserEntity> users = userrepo.findAll();
         Map<String, Integer> roleCounts = new HashMap<>();
-        
+
         for (UserEntity user : users) {
             String role = user.getRole();
             roleCounts.put(role, roleCounts.getOrDefault(role, 0) + 1);
         }
-        
+
         List<Map<String, Object>> roleCountList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : roleCounts.entrySet()) {
             Map<String, Object> roleCount = new HashMap<>();
@@ -137,7 +151,7 @@ public class UserService {
             roleCount.put("userCount", entry.getValue());
             roleCountList.add(roleCount);
         }
-        
+
         return roleCountList;
     }
 
@@ -145,12 +159,12 @@ public class UserService {
         UserEntity user = userrepo.findByUsername(username);
         return user.getHasPrimaryStrats();
     }
- 
-    public boolean updatePrimaryStrats(String username, Integer hasPrimaryStrats) { 
-        UserEntity user = userrepo.findByUsername(username); 
-    
+
+    public boolean updatePrimaryStrats(String username, Integer hasPrimaryStrats) {
+        UserEntity user = userrepo.findByUsername(username);
+
         if (user != null) { // Check if user is found
-            user.setHasPrimaryStrats(hasPrimaryStrats); 
+            user.setHasPrimaryStrats(hasPrimaryStrats);
             userrepo.save(user);
             return true;
         } else {
