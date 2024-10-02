@@ -38,6 +38,8 @@ public class FinancialEntity {
 
     private String ofi;
 
+    private String evidence_link;
+
     @ManyToOne()
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
@@ -158,4 +160,14 @@ public class FinancialEntity {
     public void setMetric(String metric) {
         this.metric = metric;
     }
+   
+    public String getEvidence_link() {
+        return evidence_link;
+
+    }
+    public void setEvidence_link(String evidence_link) {
+        this.evidence_link = evidence_link;
+
+    }
+
 }

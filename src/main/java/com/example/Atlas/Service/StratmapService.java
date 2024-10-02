@@ -63,6 +63,8 @@ public class StratmapService {
     @Autowired
     private EntityManager entityManager;
 
+    
+
 
 
     public Map<String, Object> getStrategiesByDepartmentId(int departmentId) {

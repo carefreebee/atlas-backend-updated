@@ -40,6 +40,8 @@ public class InternalEntity {
 
     private String ofi;
 
+    private String evidence_link;
+
     @ManyToOne()
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
@@ -168,4 +170,14 @@ public class InternalEntity {
     public void setUser_generated(int user_generated) {
         this.user_generated = user_generated;
     }
+
+    public String getEvidence_link() {
+        return evidence_link;
+
+    }
+    public void setEvidence_link(String evidence_link) {
+        this.evidence_link = evidence_link;
+
+    }
+
 }

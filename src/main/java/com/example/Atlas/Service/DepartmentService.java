@@ -1,5 +1,6 @@
 package com.example.Atlas.Service;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,11 @@ public class DepartmentService {
     public int getDepartmentCount() {
         return (int) departmentrepo.count();
     }
+
+    public List<DepartmentEntity> getAllDepartmentsHead() { 
+        List<DepartmentEntity> departments = departmentrepo.findAll();
+        return departments; // Return the list of DepartmentEntities
+    }
     
     // Get department by ID
     public DepartmentEntity getDepartmentById(int id) {
@@ -54,7 +60,6 @@ public class DepartmentService {
             String email,
             String university,
             String description
-
     ) {
         try {
             // Get the department entity by ID

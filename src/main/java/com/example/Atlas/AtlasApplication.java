@@ -11,3 +11,4 @@ public class AtlasApplication {
 		System.out.print("Successfully runnn!");
 	}
 }
+

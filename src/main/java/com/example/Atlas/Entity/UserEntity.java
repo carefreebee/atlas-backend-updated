@@ -33,6 +33,8 @@ public class UserEntity {
     private String email;
 
     private String password;
+
+    private String head;
     
     @Column(columnDefinition = "int DEFAULT '0'")
     private int age;
@@ -144,5 +146,14 @@ public class UserEntity {
 
     public void setHasPrimaryStrats(int hasPrimaryStrats) {
         this.hasPrimaryStrats = hasPrimaryStrats;
+    }
+
+    // Getters and setters for birthdate 
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
     }
 }

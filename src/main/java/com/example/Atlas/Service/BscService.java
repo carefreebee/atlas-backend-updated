@@ -1,6 +1,5 @@
 package com.example.Atlas.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.NoSuchElementException;
@@ -99,6 +98,8 @@ public class BscService {
                 existingFinancial.setOfi(request.getOfi());
             if (request.getActions() != null)
                 existingFinancial.setActions(request.getActions());
+            if (request.getEvidence_link() != null) //link
+                existingFinancial.setEvidence_link(request.getEvidence_link());
             // Department may not be updated
             return financialrepo.save(existingFinancial);
         } else {
@@ -151,6 +152,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null) //link
+                existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return stakeholderrepo.save(existingStakeholder);
         } else {
             throw new NoSuchElementException("Stakeholder scorecard not found with ID: " + request.getId());
@@ -202,6 +205,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null) //link
+                existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return learningrepo.save(existingStakeholder);
         } else {
             throw new NoSuchElementException("Learning scorecard not found with ID: " + request.getId());
@@ -253,6 +258,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null) //link
+                existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return internalrepo.save(existingStakeholder);
         } else {
             throw new NoSuchElementException("Internal scorecard not found with ID: " + request.getId());
@@ -323,6 +330,8 @@ public class BscService {
                 existingPrimaryFinancial.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryFinancial.setOfi(request.getOfi());
+            if(request.getEvidence_link() != null)
+                existingPrimaryFinancial.setEvidence_link(request.getEvidence_link());
             return primaryFinancialrepo.save(existingPrimaryFinancial);
         } else {
             throw new NoSuchElementException("Primary Financial scorecard not found with ID: " + request.getId());
@@ -375,6 +384,8 @@ public class BscService {
                 existingPrimaryStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryStakeholder.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null)
+                existingPrimaryStakeholder.setEvidence_link(request.getEvidence_link());
             return primaryStakeholderrepo.save(existingPrimaryStakeholder);
         } else {
             throw new NoSuchElementException("Primary Stakeholder scorecard not found with ID: " + request.getId());
@@ -426,6 +437,8 @@ public class BscService {
                 existingPrimaryInternal.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryInternal.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null)
+                existingPrimaryInternal.setEvidence_link(request.getEvidence_link());
             return primaryInternalrepo.save(existingPrimaryInternal);
         } else {
             throw new NoSuchElementException("Primary Internal scorecard not found with ID: " + request.getId());
@@ -477,6 +490,8 @@ public class BscService {
                 existingPrimaryLearning.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryLearning.setOfi(request.getOfi());
+            if (request.getEvidence_link() != null)
+                existingPrimaryLearning.setEvidence_link(request.getEvidence_link());
             return primaryLearningrepo.save(existingPrimaryLearning);
         } else {
             throw new NoSuchElementException("Primary Learning scorecard not found with ID: " + request.getId());
