@@ -17,6 +17,8 @@ public interface GoalRepository extends JpaRepository<GoalEntity, Integer> {
 
     Optional<GoalEntity> findTopByDepartmentIdOrderByIdDesc(int departmentId);
 
+    Optional<GoalEntity> findTopByDepartmentIdAndAccomplishedFalseOrderByIdDesc(int departmentId);
+
     Optional<GoalEntity> findTopByOrderByIdDesc();
 
     Optional<GoalEntity> findFirstByAccomplishedOrderByIdDesc(boolean accomplished);

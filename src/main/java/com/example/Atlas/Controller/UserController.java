@@ -158,4 +158,8 @@ public class UserController {
         }
     }
 
+    @GetMapping("/department/{departmentId}/roleCounts")
+    public Map<String, Integer> getRoleCountsByDepartment(@PathVariable int departmentId) {
+        return userserv.getRoleCountsByDepartment(departmentId);
+    }
 }

@@ -172,4 +172,26 @@ public class UserService {
         }
     }
 
+    public Map<String, Integer> getRoleCountsByDepartment(int departmentId) {
+        DepartmentEntity department = departmentrepo.findById(departmentId)
+                .orElseThrow(() -> new NoSuchElementException("Department not found with ID: " + departmentId));
+
+        List<UserEntity> users = userrepo.findByDepartment(department); // Assuming you have a findByDepartment method
+                                                                        // in UserRepository
+
+        Map<String, Integer> roleCounts = new HashMap<>();
+        roleCounts.put("headOfficer", 0);
+        roleCounts.put("faculty", 0);
+        roleCounts.put("qualityAssurance", 0); // Add QA role
+
+        for (UserEntity user : users) {
+            String role = user.getRole();
+            if (roleCounts.containsKey(role)) {
+                roleCounts.put(role, roleCounts.get(role) + 1);
+            }
+        }
+
+        return roleCounts;
+    }
+
 }

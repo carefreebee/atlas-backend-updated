@@ -28,12 +28,16 @@ public class GoalService {
         }
 
         public GoalEntity getLatestGoalsByDepartmentId(int departmentId) {
+                // Fetch the department first
                 DepartmentEntity department = departmentRepository.findById(departmentId)
-                                .orElseThrow(() -> new NoSuchElementException("Department not found"));
-                return goalRepository.findTopByDepartmentIdOrderByIdDesc(department.getId())
-                                .orElseThrow(() -> new NoSuchElementException(
-                                                "No goals found for department id " + departmentId));
-        }
+                        .orElseThrow(() -> new NoSuchElementException("Department not found"));
+            
+                // Fetch the latest unaccomplished goal for the department
+                return goalRepository.findTopByDepartmentIdAndAccomplishedFalseOrderByIdDesc(department.getId())
+                        .orElseThrow(() -> new NoSuchElementException(
+                                "No unaccomplished goals found for department id " + departmentId));
+            }
+            
 
         public GoalEntity saveGoal(GoalEntity goal, int departmentId) {
                 DepartmentEntity department = departmentRepository.findById(departmentId)

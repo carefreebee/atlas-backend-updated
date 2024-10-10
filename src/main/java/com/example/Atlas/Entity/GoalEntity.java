@@ -23,7 +23,7 @@ public class GoalEntity {
 
     private List<String> goals; // List to store multiple goals
 
-    private int targetYear;
+    private String targetYear;
 
     private boolean accomplished;
 
@@ -80,11 +80,11 @@ public class GoalEntity {
         this.goals = goals;
     }
 
-    public int getTargetYear() {
+    public String getTargetYear() {
         return targetYear;
     }
 
-    public void setTargetYear(int targetYear) {
+    public void setTargetYear(String targetYear) {
         this.targetYear = targetYear;
     }
 
