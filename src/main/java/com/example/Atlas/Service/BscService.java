@@ -338,6 +338,8 @@ public class BscService {
                 existingPrimaryFinancial.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryFinancial.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingPrimaryFinancial.setTargetYear(request.getTargetYear());
             if(request.getEvidence_link() != null)
                 existingPrimaryFinancial.setEvidence_link(request.getEvidence_link());
             return primaryFinancialrepo.save(existingPrimaryFinancial);
@@ -392,6 +394,8 @@ public class BscService {
                 existingPrimaryStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryStakeholder.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingPrimaryStakeholder.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null)
                 existingPrimaryStakeholder.setEvidence_link(request.getEvidence_link());
             return primaryStakeholderrepo.save(existingPrimaryStakeholder);
@@ -445,6 +449,8 @@ public class BscService {
                 existingPrimaryInternal.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryInternal.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingPrimaryInternal.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null)
                 existingPrimaryInternal.setEvidence_link(request.getEvidence_link());
             return primaryInternalrepo.save(existingPrimaryInternal);
@@ -498,6 +504,8 @@ public class BscService {
                 existingPrimaryLearning.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingPrimaryLearning.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingPrimaryLearning.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null)
                 existingPrimaryLearning.setEvidence_link(request.getEvidence_link());
             return primaryLearningrepo.save(existingPrimaryLearning);
