@@ -42,6 +42,8 @@ public class InternalEntity {
 
     private String evidence_link;
 
+    private String targetYear = "NA";
+
     @ManyToOne()
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
@@ -178,6 +180,14 @@ public class InternalEntity {
     public void setEvidence_link(String evidence_link) {
         this.evidence_link = evidence_link;
 
+    }
+
+    public String getTargetYear() {
+        return targetYear;
+    }
+
+    public void setTargetYear(String targetYear) {
+        this.targetYear = targetYear;
     }
 
 }

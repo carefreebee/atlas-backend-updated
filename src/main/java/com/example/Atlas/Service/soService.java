@@ -25,7 +25,11 @@ public class soService {
         return sorepo.save(request);
     }
     
-     public List<soEntity> getSoStratByDepartmentId(int departmentId) {
+     public List<soEntity> getSoStratByDepartmentIdNonSorted(int departmentId) {
+        return sorepo.findByDepartmentIdAndSorted(departmentId);
+    }
+
+    public List<soEntity> getSoStratByDepartmentId(int departmentId) {
         return sorepo.findByDepartmentId(departmentId);
     }
 
@@ -38,5 +42,14 @@ public class soService {
             msg = "S-O "+soId+" does not exist!";
             return msg;
     } 
+
+    public soEntity updateSortedStatus(int id) {
+        soEntity so = sorepo.findById(id).orElse(null);
+        if (so != null) {
+            so.setSorted(1); // Flip to 1
+            return sorepo.save(so); 
+        }
+        return null;
+    }
     
 }

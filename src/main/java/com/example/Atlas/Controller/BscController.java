@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,8 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+
 import com.example.Atlas.Entity.FinancialEntity;
 import com.example.Atlas.Entity.InternalEntity;
 import com.example.Atlas.Entity.LearningEntity;
@@ -42,6 +45,18 @@ public class BscController {
     public FinancialEntity insertFinancialBsc(@RequestBody FinancialEntity financial) {
         return bscserv.insertFinancialBsc(financial);
     }
+
+    @GetMapping("/getAllTargetYears")
+    public Map<String, List<String>> getAllTargetYears() {
+    Map<String, List<String>> response = new HashMap<>();
+    List<FinancialEntity> financials = bscserv.getAllTargetYears();
+    List<String> targetYears = new ArrayList<>();
+    for (FinancialEntity financial : financials) {
+        targetYears.add(financial.getTargetYear()); 
+    }
+    response.put("target_year", targetYears); // Put the headOfficer names into the map
+    return response;
+}
 
     @GetMapping("financial/get/{departmentId}")
     public ResponseEntity<?> getFinancialByDepartmentId(@PathVariable int departmentId) {

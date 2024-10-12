@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,21 @@ public class stController {
     }
     
 
-    @GetMapping("/get/{departmentId}")
+    @GetMapping("/getNonSorted/{departmentId}")
+    public ResponseEntity<?> getStStratByDepartmentIdNonSorted(@PathVariable int departmentId) {
+        try {
+            List<stEntity> stStrat = stserv.getStStratByDepartmentIdNonSorted(departmentId);
+            if (stStrat != null && !stStrat.isEmpty()) {
+                return ResponseEntity.ok(stStrat);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No S-TStrat found for department id " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("get/{departmentId}")
     public ResponseEntity<?> getStStratByDepartmentId(@PathVariable int departmentId) {
         try {
             List<stEntity> stStrat = stserv.getStStratByDepartmentId(departmentId);
@@ -47,18 +62,6 @@ public class stController {
         }
     }
 
-    //   @DeleteMapping("/delete/{id}")
-    // public ResponseEntity<String> deleteSt(@PathVariable int id) {
-    //     try {
-    //         stserv.deleteSt(id);
-    //         return ResponseEntity.ok("S-T with ID " + id + " deleted successfully");
-    //     } catch (NoSuchElementException e) {
-    //         return ResponseEntity.notFound().build();
-    //     } catch (Exception e) {
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //                 .body("Failed to delete S-T: " + e.getMessage());
-    //     }
-    // }
 
      @DeleteMapping("/delete/{id}")
 public ResponseEntity<Map<String, String>> deleteSt(@PathVariable int id) {
@@ -78,5 +81,19 @@ public ResponseEntity<Map<String, String>> deleteSt(@PathVariable int id) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }
+
+        @PutMapping("/updateSorted/{id}")
+    public ResponseEntity<?> updateSorted(@PathVariable int id) {
+        try {
+            stEntity so = stserv.updateSortedStatus(id);
+            if (so != null) {
+                return ResponseEntity.ok(so);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ST Strat not found with id " + id);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating ST Strat: " + e.getMessage());
+        }
+    }
     
 }

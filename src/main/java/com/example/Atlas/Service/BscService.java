@@ -96,6 +96,8 @@ public class BscService {
                 existingFinancial.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingFinancial.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingFinancial.setTargetYear(request.getTargetYear());
             if (request.getActions() != null)
                 existingFinancial.setActions(request.getActions());
             if (request.getEvidence_link() != null) //link
@@ -152,6 +154,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingStakeholder.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null) //link
                 existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return stakeholderrepo.save(existingStakeholder);
@@ -205,6 +209,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingStakeholder.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null) //link
                 existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return learningrepo.save(existingStakeholder);
@@ -258,6 +264,8 @@ public class BscService {
                 existingStakeholder.setIncharge(request.getIncharge());
             if (request.getOfi() != null)
                 existingStakeholder.setOfi(request.getOfi());
+            if(request.getTargetYear() != null) 
+                existingStakeholder.setTargetYear(request.getTargetYear());
             if (request.getEvidence_link() != null) //link
                 existingStakeholder.setEvidence_link(request.getEvidence_link()); 
             return internalrepo.save(existingStakeholder);
@@ -496,5 +504,11 @@ public class BscService {
         } else {
             throw new NoSuchElementException("Primary Learning scorecard not found with ID: " + request.getId());
         }
+    }
+
+
+    public List<FinancialEntity> getAllTargetYears() { 
+        List<FinancialEntity> financial = financialrepo.findAll();
+        return financial; // Return the list of DepartmentEntities
     }
 }

@@ -23,6 +23,8 @@ public class stEntity {
     @JoinColumn(name = "department_id") // Specify the foreign key column
     private DepartmentEntity department;
 
+    @Column(columnDefinition = "tinyint DEFAULT '0'")
+    private int sorted;
 
      // Getters and setters for id
      public int getId() {
@@ -49,6 +51,15 @@ public class stEntity {
 
     public void setDepartment(DepartmentEntity department) {
         this.department = department;
+    }
+
+    // Getters and setters for sorted
+    public int getSorted() {
+        return sorted;
+    }
+
+    public void setSorted(int sorted) {
+        this.sorted = sorted;
     }
 
     

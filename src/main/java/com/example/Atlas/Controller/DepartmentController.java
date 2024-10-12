@@ -144,4 +144,28 @@ public Map<String, List<String>> getAllDepartmentsHead() {
         return ResponseEntity.ok(threatCountMap);
     }
 
+    @GetMapping("getHasPrimaryStrats/{departmentId}")
+    public int getHasPrimaryStrats(@PathVariable int departmentId) {
+        return departserv.getHasPrimaryStrats(departmentId);
+    }
+
+    @PutMapping("/update/primaryStrats/{departmentId}")
+    public ResponseEntity<String> updatePrimaryStrats(
+            @PathVariable("departmentId") int departmentId,
+            @RequestBody DepartmentEntity request) {
+        try {
+            boolean success = departserv.updatePrimaryStrats(
+                    departmentId,
+                    request.getHasPrimaryStrats());
+            if (success) {
+                return ResponseEntity.ok("User primary strats updated successfully.");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Department not found with username: " + departmentId);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to update user primary strats: " + e.getMessage());
+        }
+    }
+
 }

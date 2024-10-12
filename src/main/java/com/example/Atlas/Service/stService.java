@@ -25,7 +25,11 @@ public class stService {
         return strepo.save(request);
     }
     
-     public List<stEntity> getStStratByDepartmentId(int departmentId) {
+    public List<stEntity> getStStratByDepartmentIdNonSorted(int departmentId) {
+        return strepo.findByDepartmentIdAndSorted(departmentId);
+    }
+
+    public List<stEntity> getStStratByDepartmentId(int departmentId) {
         return strepo.findByDepartmentId(departmentId);
     }
 
@@ -38,6 +42,15 @@ public class stService {
             msg = "S-T "+stId+" does not exist!";
             return msg;
     } 
+
+    public stEntity updateSortedStatus(int id) {
+        stEntity st = strepo.findById(id).orElse(null);
+        if (st != null) {
+            st.setSorted(1); // Flip to 1
+            return strepo.save(st); 
+        }
+        return null;
+    }
 
     
 }

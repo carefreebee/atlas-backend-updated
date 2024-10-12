@@ -24,7 +24,11 @@ public class wtService {
         return wtrepo.save(request);
     }
     
-     public List<wtEntity> getWtStratByDepartmentId(int departmentId) {
+     public List<wtEntity> getWtStratByDepartmentIdNonSorted(int departmentId) {
+        return wtrepo.findByDepartmentIdAndSorted(departmentId);
+    }
+
+    public List<wtEntity> getWtStratByDepartmentId(int departmentId) {
         return wtrepo.findByDepartmentId(departmentId);
     }
 
@@ -38,6 +42,13 @@ public class wtService {
             return msg;
     } 
 
-
+    public wtEntity updateSortedStatus(int id) {
+        wtEntity wt = wtrepo.findById(id).orElse(null);
+        if (wt != null) {
+            wt.setSorted(1); // Flip to 1
+            return wtrepo.save(wt); 
+        }
+        return null;
+    }
     
 }

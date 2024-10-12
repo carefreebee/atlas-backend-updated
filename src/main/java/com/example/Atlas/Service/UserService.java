@@ -155,23 +155,6 @@ public class UserService {
         return roleCountList;
     }
 
-    public int getHasPrimaryStrats(String username) {
-        UserEntity user = userrepo.findByUsername(username);
-        return user.getHasPrimaryStrats();
-    }
-
-    public boolean updatePrimaryStrats(String username, Integer hasPrimaryStrats) {
-        UserEntity user = userrepo.findByUsername(username);
-
-        if (user != null) { // Check if user is found
-            user.setHasPrimaryStrats(hasPrimaryStrats);
-            userrepo.save(user);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public Map<String, Integer> getRoleCountsByDepartment(int departmentId) {
         DepartmentEntity department = departmentrepo.findById(departmentId)
                 .orElseThrow(() -> new NoSuchElementException("Department not found with ID: " + departmentId));

@@ -1,5 +1,6 @@
 package com.example.Atlas.Entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +28,9 @@ public class DepartmentEntity {
     private String description;
 
     private String email;
+
+    @Column(columnDefinition = "tinyint DEFAULT '0'")
+    private int hasPrimaryStrats;
 
     public int getId() {
         return id;
@@ -94,6 +98,14 @@ public class DepartmentEntity {
        this.email = email;
     }
 
+    public int getHasPrimaryStrats() {
+        return hasPrimaryStrats;
     }
+
+    public void setHasPrimaryStrats(int hasPrimaryStrats) {
+        this.hasPrimaryStrats = hasPrimaryStrats;
+    }
+
+}
 
 

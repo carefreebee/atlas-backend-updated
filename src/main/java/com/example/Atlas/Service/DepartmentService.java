@@ -103,5 +103,23 @@ public class DepartmentService {
         return universities.size(); 
     }
 
+    public int getHasPrimaryStrats(int id) {
+        Optional<DepartmentEntity> optionalDepartment = departmentrepo.findById(id);
+        return optionalDepartment.map(DepartmentEntity::getHasPrimaryStrats).orElse(-1); 
+    }
+    
+    public boolean updatePrimaryStrats(int id, Integer hasPrimaryStrats) {
+        Optional<DepartmentEntity> optionalDepartment = departmentrepo.findById(id);
+    
+        if (optionalDepartment.isPresent()) {
+            DepartmentEntity department = optionalDepartment.get();
+            department.setHasPrimaryStrats(hasPrimaryStrats);
+            departmentrepo.save(department);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 }
