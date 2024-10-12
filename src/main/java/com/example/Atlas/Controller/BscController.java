@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,17 +45,29 @@ public class BscController {
         return bscserv.insertFinancialBsc(financial);
     }
 
-    @GetMapping("/getAllTargetYears")
-    public Map<String, List<String>> getAllTargetYears() {
-    Map<String, List<String>> response = new HashMap<>();
-    List<FinancialEntity> financials = bscserv.getAllTargetYears();
-    List<String> targetYears = new ArrayList<>();
-    for (FinancialEntity financial : financials) {
-        targetYears.add(financial.getTargetYear()); 
+    @GetMapping("/getFinancialTargetYears/{departmentId}")
+    public List<FinancialEntity> getFinancialTargetYears(@PathVariable int departmentId) {
+        List<FinancialEntity> financialtargetYears = bscserv.getFinancialTargetYears(departmentId);
+        return financialtargetYears; 
     }
-    response.put("target_year", targetYears); // Put the headOfficer names into the map
-    return response;
-}
+
+    @GetMapping("/getInternalTargetYears/{departmentId}")
+    public List<InternalEntity> getInternalTargetYears(@PathVariable int departmentId) {
+        List<InternalEntity> internaltargetYears = bscserv.getInternalTargetYears(departmentId);
+        return internaltargetYears; 
+    }
+
+    @GetMapping("/getLearningTargetYears/{departmentId}")
+    public List<LearningEntity> getLearningTargetYears(@PathVariable int departmentId) {
+        List<LearningEntity> learningtargetYears = bscserv.getLearningTargetYears(departmentId);
+        return learningtargetYears; 
+    }
+
+    @GetMapping("/getStakeholderTargetYears/{departmentId}")
+    public List<StakeholderEntity> getStakeholderTargetYears(@PathVariable int departmentId) {
+        List<StakeholderEntity> stakeholdertargetYears = bscserv.getStakeholderTargetYears(departmentId);
+        return stakeholdertargetYears; 
+    }
 
     @GetMapping("financial/get/{departmentId}")
     public ResponseEntity<?> getFinancialByDepartmentId(@PathVariable int departmentId) {

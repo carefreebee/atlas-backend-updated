@@ -507,8 +507,21 @@ public class BscService {
     }
 
 
-    public List<FinancialEntity> getAllTargetYears() { 
-        List<FinancialEntity> financial = financialrepo.findAll();
-        return financial; // Return the list of DepartmentEntities
+    public List<FinancialEntity> getFinancialTargetYears(int departmentId) { 
+        return financialrepo.findByDepartmentId(departmentId); 
     }
+
+    public List<InternalEntity> getInternalTargetYears(int departmentId) { 
+        return internalrepo.findByDepartmentId(departmentId); 
+    }
+
+    public List<LearningEntity> getLearningTargetYears(int departmentId) { 
+        return learningrepo.findByDepartmentId(departmentId); 
+    }
+
+    public List<StakeholderEntity> getStakeholderTargetYears(int departmentId) { 
+        return stakeholderrepo.findByDepartmentId(departmentId); 
+    }
+    
+    
 }
