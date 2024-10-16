@@ -29,7 +29,7 @@ public class primaryLearningEntity {
     private String incharge;
     private String ofi;
     private String evidence_link;
-    private String targetYear = "NA";
+    private String targetYear;
 
     @ManyToOne()
     @JoinColumn(name = "department_id")

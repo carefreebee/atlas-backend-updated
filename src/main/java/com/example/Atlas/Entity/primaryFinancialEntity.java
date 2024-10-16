@@ -29,7 +29,7 @@ public class primaryFinancialEntity {
     private String incharge;
     private String ofi;
     private String evidence_link;   
-    private String targetYear = "NA";
+    private String targetYear;
 
     @ManyToOne()
     @JoinColumn(name = "department_id")
@@ -157,7 +157,7 @@ public class primaryFinancialEntity {
         this.evidence_link = evidence_link;
 
     }
-    
+
     public String getTargetYear() {
         return targetYear;
     }

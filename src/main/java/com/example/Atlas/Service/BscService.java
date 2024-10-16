@@ -529,7 +529,6 @@ public class BscService {
 
     public List<StakeholderEntity> getStakeholderTargetYears(int departmentId) { 
         return stakeholderrepo.findByDepartmentId(departmentId); 
-    }
-    
+    }    
     
 }

@@ -42,7 +42,7 @@ public class InternalEntity {
 
     private String evidence_link;
 
-    private String targetYear = "NA";
+    private String targetYear;
 
     @ManyToOne()
     @JoinColumn(name = "department_id")

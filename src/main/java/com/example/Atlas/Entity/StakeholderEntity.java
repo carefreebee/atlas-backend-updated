@@ -42,7 +42,7 @@ public class StakeholderEntity {
 
     private String evidence_link;
 
-    private String targetYear = "NA";
+    private String targetYear;
 
     @ManyToOne()
     @JoinColumn(name = "department_id")
