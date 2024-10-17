@@ -1,6 +1,5 @@
 package com.example.Atlas.Controller;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -52,29 +51,29 @@ public class DepartmentController {
 
     @GetMapping("/getAllDepartments")
     public Map<String, List<DepartmentEntity>> getAllDepartments() {
-    Map<String, List<DepartmentEntity>> response = new HashMap<>();
-    response.put("departments", departserv.getAllDepartment());
-    return response;
-   }  
-   
-   @GetMapping("/getAllDepartmentsHead")
-public Map<String, List<String>> getAllDepartmentsHead() {
-    Map<String, List<String>> response = new HashMap<>();
-    List<DepartmentEntity> departments = departserv.getAllDepartmentsHead();
-    List<String> headOfficers = new ArrayList<>();
-    for (DepartmentEntity department : departments) {
-        headOfficers.add(department.getHead_officer()); 
+        Map<String, List<DepartmentEntity>> response = new HashMap<>();
+        response.put("departments", departserv.getAllDepartment());
+        return response;
     }
-    response.put("departmentsHead", headOfficers); // Put the headOfficer names into the map
-    return response;
-}
 
-   @GetMapping("/getDepartmentCount")
-   public Map<String, Integer> getDepartmentCount() {
-       Map<String, Integer> response = new HashMap<>();
-       response.put("departmentCount", departserv.getDepartmentCount());
-       return response;
-   }
+    @GetMapping("/getAllDepartmentsHead")
+    public Map<String, List<String>> getAllDepartmentsHead() {
+        Map<String, List<String>> response = new HashMap<>();
+        List<DepartmentEntity> departments = departserv.getAllDepartmentsHead();
+        List<String> headOfficers = new ArrayList<>();
+        for (DepartmentEntity department : departments) {
+            headOfficers.add(department.getHead_officer());
+        }
+        response.put("departmentsHead", headOfficers); // Put the headOfficer names into the map
+        return response;
+    }
+
+    @GetMapping("/getDepartmentCount")
+    public Map<String, Integer> getDepartmentCount() {
+        Map<String, Integer> response = new HashMap<>();
+        response.put("departmentCount", departserv.getDepartmentCount());
+        return response;
+    }
 
     @GetMapping("/{departmentId}")
     public DepartmentEntity getProfileData(@PathVariable("departmentId") int departmentId) {
@@ -87,14 +86,13 @@ public Map<String, List<String>> getAllDepartmentsHead() {
             @RequestBody DepartmentEntity request) {
         try {
             boolean success = departserv.updateDepartmentDetails(
-                departmentId,
-                request.getHead_officer(),
-                request.getDepartment_landline(),
-                request.getLocation(),
-                request.getEmail(),
-                request.getUniversity(),
-                request.getDescription()
-            );
+                    departmentId,
+                    request.getHead_officer(),
+                    request.getDepartment_landline(),
+                    request.getLocation(),
+                    request.getEmail(),
+                    request.getUniversity(),
+                    request.getDescription());
             if (success) {
                 return ResponseEntity.ok("Department profile updated successfully.");
             } else {
@@ -160,7 +158,8 @@ public Map<String, List<String>> getAllDepartmentsHead() {
             if (success) {
                 return ResponseEntity.ok("User primary strats updated successfully.");
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Department not found with username: " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Department not found with username: " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

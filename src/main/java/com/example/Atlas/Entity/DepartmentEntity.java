@@ -29,6 +29,8 @@ public class DepartmentEntity {
 
     private String email;
 
+    private String category;
+
     @Column(columnDefinition = "tinyint DEFAULT '0'")
     private int hasPrimaryStrats;
 
@@ -87,15 +89,13 @@ public class DepartmentEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-    
 
     public String getEmail() {
         return email;
     }
 
-    
     public void setEmail(String email) {
-       this.email = email;
+        this.email = email;
     }
 
     public int getHasPrimaryStrats() {
@@ -106,6 +106,11 @@ public class DepartmentEntity {
         this.hasPrimaryStrats = hasPrimaryStrats;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }
-
-
