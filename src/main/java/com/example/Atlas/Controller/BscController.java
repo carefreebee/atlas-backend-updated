@@ -32,7 +32,6 @@ import com.example.Atlas.Service.BscService;
 
 @RestController
 @RequestMapping("/bsc")
-@CrossOrigin(origins = "http://localhost:3000")
 public class BscController {
     @Autowired
     BscService bscserv;

@@ -40,8 +40,8 @@ public class PaypalController {
         @RequestParam("departmentname") String departmentname
     ){
         try{
-            String cancelUrl = "http://localhost:8080/payment/cancel";
-            String successUrl = "http://localhost:8080/payment/success";
+            String cancelUrl = "https://atlas-backend.up.railway.app/payment/cancel";
+            String successUrl = "hhttps://atlas-backend.up.railway.app/payment/success";
             Payment payment = paypalService.createPayment(
                 10.0,
                 "USD",
