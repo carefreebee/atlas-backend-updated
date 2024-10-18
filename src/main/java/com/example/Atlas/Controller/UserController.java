@@ -24,7 +24,7 @@ import com.example.Atlas.model.*;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:8080", allowCredentials = "true")
+@CrossOrigin(origins = "https://atlas-backend.up.railway.app", allowCredentials = "true")
 public class UserController {
     @Autowired
     UserService userserv;
