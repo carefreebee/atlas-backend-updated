@@ -21,7 +21,6 @@ import com.example.Atlas.Service.DepartmentService;
 
 @RestController
 @RequestMapping("/approval")
-@CrossOrigin(origins = "http://localhost:3000")
 public class ApprovalController {
 
      @Autowired
