@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,9 +43,8 @@ public class StratmapController {
     @Autowired
     DepartmentRepository departmentrepo;
 
-    @Autowired  
+    @Autowired
     FinancialRepository financialrepo;
-
 
     @GetMapping("byDepartment/{departmentId}")
     public ResponseEntity<Map<String, Object>> getStrategiesByDepartmentId(@PathVariable int departmentId) {
@@ -52,7 +53,7 @@ public class StratmapController {
             return ResponseEntity.ok(strategies);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                                 .body(Map.of("error", "Failed to fetch strategies"));
+                    .body(Map.of("error", "Failed to fetch strategies"));
         }
     }
 
@@ -61,8 +62,6 @@ public class StratmapController {
         return stratmapserv.insertFinancial(financial);
     }
 
-    
-
     @GetMapping("/financial/get/{departmentId}")
     public ResponseEntity<?> getFinancialByDepartmentId(@PathVariable int departmentId) {
         try {
@@ -70,7 +69,8 @@ public class StratmapController {
             if (financial != null && !financial.isEmpty()) {
                 return ResponseEntity.ok(financial);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No financial found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No financial found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
@@ -85,18 +85,20 @@ public class StratmapController {
     @GetMapping("primaryFinancial/get/{departmentId}")
     public ResponseEntity<?> getPrimaryFinancialByDepartmentId(@PathVariable int departmentId) {
         try {
-            List<primaryFinancialEntity> primaryFinancial = stratmapserv.getPrimaryFinancialByDepartmentId(departmentId);
+            List<primaryFinancialEntity> primaryFinancial = stratmapserv
+                    .getPrimaryFinancialByDepartmentId(departmentId);
             if (primaryFinancial != null && !primaryFinancial.isEmpty()) {
                 return ResponseEntity.ok(primaryFinancial);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary financial found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary financial found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
 
-      @DeleteMapping("financial/delete/{id}")
+    @DeleteMapping("financial/delete/{id}")
     public ResponseEntity<String> deleteFinancial(@PathVariable int id) {
         try {
             stratmapserv.deleteFinancial(id);
@@ -130,11 +132,13 @@ public class StratmapController {
     @GetMapping("primaryStakeholder/get/{departmentId}")
     public ResponseEntity<?> getPrimaryStakeholderByDepartmentId(@PathVariable int departmentId) {
         try {
-            List<primaryStakeholderEntity> primaryStakeholder = stratmapserv.getPrimaryStakeholderByDepartmentId(departmentId);
+            List<primaryStakeholderEntity> primaryStakeholder = stratmapserv
+                    .getPrimaryStakeholderByDepartmentId(departmentId);
             if (primaryStakeholder != null && !primaryStakeholder.isEmpty()) {
                 return ResponseEntity.ok(primaryStakeholder);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary stakeholder found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary stakeholder found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
@@ -175,7 +179,8 @@ public class StratmapController {
             if (primaryInternal != null && !primaryInternal.isEmpty()) {
                 return ResponseEntity.ok(primaryInternal);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary internal found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary internal found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
@@ -192,7 +197,6 @@ public class StratmapController {
     public StakeholderEntity insertStakeholder(@RequestBody StakeholderEntity stakeholder) {
         return stratmapserv.insertStakeholder(stakeholder);
     }
-    
 
     @GetMapping("/stakeholder/get/{departmentId}")
     public ResponseEntity<?> getStakeholderByDepartmentId(@PathVariable int departmentId) {
@@ -201,19 +205,18 @@ public class StratmapController {
             if (stakeholder != null && !stakeholder.isEmpty()) {
                 return ResponseEntity.ok(stakeholder);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No stakeholder found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No stakeholder found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
 
-
     @PostMapping("/learning/insert")
     public LearningEntity insertLearning(@RequestBody LearningEntity learning) {
         return stratmapserv.insertLearning(learning);
     }
-    
 
     @GetMapping("/learning/get/{departmentId}")
     public ResponseEntity<?> getLearningByDepartmentId(@PathVariable int departmentId) {
@@ -222,7 +225,8 @@ public class StratmapController {
             if (learning != null && !learning.isEmpty()) {
                 return ResponseEntity.ok(learning);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No learning found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No learning found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
@@ -241,7 +245,8 @@ public class StratmapController {
             if (primaryLearning != null && !primaryLearning.isEmpty()) {
                 return ResponseEntity.ok(primaryLearning);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No primary learning found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No primary learning found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
@@ -252,7 +257,6 @@ public class StratmapController {
     public InternalEntity insertInternal(@RequestBody InternalEntity internal) {
         return stratmapserv.insertInternal(internal);
     }
-    
 
     @GetMapping("/internal/get/{departmentId}")
     public ResponseEntity<?> getInternalByDepartmentId(@PathVariable int departmentId) {
@@ -261,13 +265,14 @@ public class StratmapController {
             if (internal != null && !internal.isEmpty()) {
                 return ResponseEntity.ok(internal);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No internal found for department id " + departmentId);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No internal found for department id " + departmentId);
             }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
-  
+
     @PutMapping("/financial/edit/{id}")
     public ResponseEntity<?> editFinancial(@PathVariable int id, @RequestBody FinancialEntity financialEntity) {
         try {
@@ -287,7 +292,7 @@ public class StratmapController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
     }
-    
+
     @PutMapping("/learning/edit/{id}")
     public ResponseEntity<?> editLearning(@PathVariable int id, @RequestBody LearningEntity learningEntity) {
         try {
@@ -308,28 +313,96 @@ public class StratmapController {
         }
     }
 
-    @DeleteMapping("/financial/clear")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
-    public void clearFinancialTableAndResetId() {
-        stratmapserv.financialClearTable();
+    @GetMapping("/getByTargetCode/{targetCode}")
+    public ResponseEntity<?> getDataByTargetCode(@PathVariable String targetCode) {
+        try {
+            List<Map<String, Object>> combinedData = new ArrayList<>();
+
+            // Handle null targetCode gracefully
+            if (targetCode != null && !targetCode.isEmpty()) {
+                List<primaryLearningEntity> learningData = stratmapserv.getLearningByTargetCode(targetCode);
+                List<primaryStakeholderEntity> stakeholderData = stratmapserv.getStakeholderByTargetCode(targetCode);
+                List<primaryFinancialEntity> financialData = stratmapserv.getFinancialByTargetCode(targetCode);
+                List<primaryInternalEntity> internalData = stratmapserv.getInternalByTargetCode(targetCode);
+                combinedData.addAll(
+                        learningData.stream().map(this::transformLearningEntityToMap).collect(Collectors.toList()));
+                combinedData.addAll(stakeholderData.stream().map(this::transformStakeholderEntityToMap)
+                        .collect(Collectors.toList()));
+                combinedData.addAll(
+                        financialData.stream().map(this::transformFinancialEntityToMap).collect(Collectors.toList()));
+                combinedData.addAll(
+                        internalData.stream().map(this::transformInternalEntityToMap).collect(Collectors.toList()));
+            } else {
+                // Handle the case where targetCode is null or empty. Return an empty list.
+                return ResponseEntity.ok(combinedData);
+            }
+
+            if (combinedData.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(combinedData);
+
+        } catch (Exception e) {
+            // Log the exception for debugging purposes. Remove e.printStackTrace() in
+            // production.
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to fetch data: " + e.getMessage()));
+        }
     }
 
-    @DeleteMapping("/stakeholder/clear")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
-    public void clearStakeholderTableAndResetId() {
-        stratmapserv.stakeholderClearTable();
+    // Separate helper functions for each entity type. Null values are replaced with
+    // 0.
+    private Map<String, Object> transformLearningEntityToMap(primaryLearningEntity entity) {
+        return Map.of(
+                "target_code", entity.getTarget_code(),
+                "target_performance", objectToZeroIfNull(entity.getTarget_performance()),
+                "actual_performance", objectToZeroIfNull(entity.getActual_performance()),
+                "office_target", objectToZeroIfNull(entity.getOffice_target()),
+                "department_id", entity.getDepartment().getId(),
+                "department_name", entity.getDepartment().getDepartment_name(),
+                "entityType", "learning");
     }
 
-    @DeleteMapping("/learning/clear")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
-    public void clearLearningTableAndResetId() {
-        stratmapserv.learningClearTable();
+    private Map<String, Object> transformStakeholderEntityToMap(primaryStakeholderEntity entity) {
+        return Map.of(
+                "target_code", entity.getTarget_code(),
+                "target_performance", objectToZeroIfNull(entity.getTarget_performance()),
+                "actual_performance", objectToZeroIfNull(entity.getActual_performance()),
+                "office_target", objectToZeroIfNull(entity.getOffice_target()),
+                "department_id", entity.getDepartment().getId(),
+                "department_name", entity.getDepartment().getDepartment_name(),
+                "entityType", "stakeholder");
     }
 
-    @DeleteMapping("/internal/clear")
-    @ResponseStatus(HttpStatus.NO_CONTENT) // 204 No Content on success
-    public void clearInternalTableAndResetId() {
-        stratmapserv.internalClearTable();
+    private Map<String, Object> transformFinancialEntityToMap(primaryFinancialEntity entity) {
+        return Map.of(
+                "target_code", entity.getTarget_code(),
+                "target_performance", objectToZeroIfNull(entity.getTarget_performance()),
+                "actual_performance", objectToZeroIfNull(entity.getActual_performance()),
+                "office_target", objectToZeroIfNull(entity.getOffice_target()),
+                "department_id", entity.getDepartment().getId(),
+                "department_name", entity.getDepartment().getDepartment_name(),
+                "entityType", "financial");
     }
-    
+
+    private Map<String, Object> transformInternalEntityToMap(primaryInternalEntity entity) {
+        return Map.of(
+                "target_code", entity.getTarget_code(),
+                "target_performance", objectToZeroIfNull(entity.getTarget_performance()),
+                "actual_performance", objectToZeroIfNull(entity.getActual_performance()),
+                "office_target", objectToZeroIfNull(entity.getOffice_target()),
+                "department_id", entity.getDepartment().getId(),
+                "department_name", entity.getDepartment().getDepartment_name(),
+                "entityType", "internal");
+    }
+
+    // Helper function to handle null values
+    private Object objectToZeroIfNull(Object obj) {
+        if (obj == null) {
+            return 0; // Replace null with 0
+        }
+        return obj;
+    }
+
 }

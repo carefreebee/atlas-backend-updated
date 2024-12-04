@@ -48,9 +48,6 @@ public class LearningEntity {
     @JoinColumn(name = "department_id")
     private DepartmentEntity department;
 
-    @Column(columnDefinition = "tinyint DEFAULT '0'")
-    private int user_generated;
-
     // Getters and setters
     public int getId() {
         return id;
@@ -163,14 +160,6 @@ public class LearningEntity {
 
     public void setOfi(String ofi) {
         this.ofi = ofi;
-    }
-
-    public int getUser_generated() {
-        return user_generated;
-    }
-
-    public void setUser_generated(int user_generated) {
-        this.user_generated = user_generated;
     }
 
     public String getEvidence_link() {

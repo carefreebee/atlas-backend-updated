@@ -11,4 +11,6 @@ public interface primaryFinancialRepository extends JpaRepository<primaryFinanci
     List<primaryFinancialEntity> findByDepartmentId(int departmentId);
 
     primaryFinancialEntity findTopByOrderByIdDesc();
+
+    List<primaryFinancialEntity> findByTargetCode(String targetCode);
 }
